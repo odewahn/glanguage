@@ -1,4 +1,7 @@
-Good article -- https://daveceddia.com/create-react-app-express-backend/
+Good article
+
+-- https://daveceddia.com/create-react-app-express-backend/
+-- https://daveceddia.com/deploy-react-express-app-heroku/
 
 # Starting Express
 

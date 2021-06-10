@@ -17,7 +17,7 @@ const Main = () => {
 
   return (
     <div className="App">
-      <h1>Users</h1>
+      <h1>Userz</h1>
       <ul>
         {users.map((user) => {
           return (
