@@ -4,7 +4,7 @@ const Main = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("/users")
+    fetch("/api/users")
       .then((res) => {
         console.log(res);
         return res.json();
@@ -30,19 +30,5 @@ const Main = () => {
     </div>
   );
 };
-
-/*
-class App extends Component {
-  state = { users: [] };
-
-  componentDidMount() {
-    
-  }
-
-  render() {
-   
-  }
-}
-*/
 
 export default Main;
