@@ -1,0 +1,54 @@
+dates_and_times:
+  days:
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+  months:
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+  times:
+    - afternoon
+    - morning
+    - evening
+    - today
+    - tomorrow
+prepositions:
+  - of
+  - in
+  - to
+  - for
+  - with
+  - on
+  - at
+  - from
+  - by
+  - about
+  - as
+  - into
+  - like
+  - through
+  - after
+  - over
+  - between
+  - out
+  - against
+  - during
+  - without
+  - before
+  - under
+  - around
+  - among
