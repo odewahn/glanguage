@@ -16,8 +16,9 @@ const Main = () => {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Userz</h1>
+    <div>
+      <h1>Users</h1>
+      Here's an example of using an API.
       <ul>
         {users.map((user) => {
           return (
