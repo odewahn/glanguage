@@ -8,11 +8,9 @@ import Main from "./components/Main";
 
 ReactDOM.render(
   <Router>
-    <div>
-      <Route exact path="/" component={Main} />
-      <Route exact path="/users" component={Users} />
-      <Route exact path="/test" component={Test} />
-    </div>
+    <Route exact path="/" component={Main} />
+    <Route exact path="/users" component={Users} />
+    <Route exact path="/test" component={Test} />
   </Router>,
   document.getElementById("root")
 );
