@@ -4,6 +4,8 @@ Good article
 
 - https://daveceddia.com/create-react-app-express-backend/
 - https://daveceddia.com/deploy-react-express-app-heroku/
+- Set up material UI -- https://www.pluralsight.com/guides/installing-and-using-material-ui-with-react
+- Set up redux -- https://medium.com/coox-tech/how-to-setup-redux-with-react-2020-adb8cad90234
 
 # Starting Express
 
