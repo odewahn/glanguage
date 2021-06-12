@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import Config from "./state/config.js";
+import Vocabulary from "./state/vocabulary.js";
 
 const rootReducer = combineReducers({
-  Config,
+  Vocabulary,
 });
 export default rootReducer;

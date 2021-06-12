@@ -1,12 +1,11 @@
+import { fetchFromAPI } from "./utils";
+
 /*********************************************************************
 ||  Define the initial reducer state
 *********************************************************************/
 
 export const INITIAL_STATE = {
-  title: "",
-  description: "",
-  environment: {},
-  backend: {},
+  wordlist: {},
 };
 
 /*********************************************************************
@@ -14,7 +13,7 @@ export const INITIAL_STATE = {
   *********************************************************************/
 function Main(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case "setConfigField":
+    case "setVocabularyField":
       return Object.assign({}, state, { [action.key]: action.val });
     default:
       return state;
@@ -24,8 +23,27 @@ function Main(state = INITIAL_STATE, action) {
 /*********************************************************************
   ||  Actions
   *********************************************************************/
-export function setConfigField(key, val) {
-  return { type: "setConfigField", key, val };
+export function setVocabularyField(key, val) {
+  return { type: "setVocabularyField", key, val };
+}
+
+export function fetchVocabulary() {
+  return async (dispatch, getState) => {
+    console.log("doin it!");
+    dispatch(
+      fetchFromAPI(
+        "/api/vocabulary",
+        {},
+        (data) => {
+          console.log(data);
+          dispatch(setVocabularyField("wordlist", data));
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+    );
+  };
 }
 
 export default Main;

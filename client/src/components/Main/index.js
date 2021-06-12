@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core";
 
 import "./index.css";
 
-import { setConfigField } from "../../app/state/config";
+import { fetchVocabulary } from "../../app/state/vocabulary";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,8 @@ const Main = () => {
   const [vocabulary, setVocabulary] = useState({});
 
   useEffect(() => {
+    dispatch(fetchVocabulary());
+    /*
     fetch("/api/vocabulary")
       .then((res) => {
         return res.json();
@@ -20,7 +22,9 @@ const Main = () => {
       .then((users) => {
         console.log(users);
         setVocabulary(users);
+        dispatch(setVocabularyField("wordlist", users));
       });
+      */
   }, []);
 
   return (
@@ -36,9 +40,8 @@ const Main = () => {
       </Button>
       <Button
         onClick={() => {
-          dispatch(
-            setConfigField("title", "The random number is " + Math.random())
-          );
+          //dispatch();
+          //setConfigField("title", "The random number is " + Math.random())
         }}
       >
         Set Title
