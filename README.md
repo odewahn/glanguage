@@ -28,3 +28,7 @@ In the `./client` directory, run:
 ```
 npm start
 ```
+
+# Translation stuff
+
+Use https://cloud.google.com/speech-to-text/ to create a conversational partner for learning a language

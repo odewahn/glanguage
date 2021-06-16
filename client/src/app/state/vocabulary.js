@@ -6,6 +6,7 @@ import { fetchFromAPI } from "./utils";
 
 export const INITIAL_STATE = {
   wordlist: {},
+  target: "",
 };
 
 /*********************************************************************
@@ -43,6 +44,51 @@ export function fetchVocabulary() {
         }
       )
     );
+  };
+}
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+// Return a random element from an array
+function randomElement(items) {
+  var item = items[Math.floor(Math.random() * items.length)];
+  return item;
+}
+export function setTarget() {
+  return async (dispatch, getState) => {
+    const wl = getState()["Vocabulary"]["wordlist"];
+    const mode = getState()["Settings"]["mode"];
+    console.log("mode is", mode);
+
+    switch (mode) {
+      case "numbers":
+        dispatch(
+          setVocabularyField(
+            "target",
+            randomNumber(
+              getState()["Settings"]["numbers_lower_bound"],
+              getState()["Settings"]["numbers_upper_bound"]
+            )
+          )
+        );
+        break;
+      case "dates":
+        const weekday = randomElement(wl["days"]);
+        const month = randomElement(wl["months"]);
+        const day = randomNumber(1, 31);
+        const dt = `${weekday}, ${month} ${day}`;
+        dispatch(setVocabularyField("target", dt));
+        break;
+      case "prepositions":
+        dispatch(
+          setVocabularyField("target", randomElement(wl["prepositions"]))
+        );
+        break;
+      default:
+        dispatch(setVocabularyField("target", "Invalid setting!!!"));
+    }
   };
 }
 

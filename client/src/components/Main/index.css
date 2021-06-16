@@ -1,6 +1,5 @@
 body {
   background-color: lightgray;
-  line-height: 0;
   margin: 0;
   padding: 0;
 }
@@ -8,4 +7,18 @@ body {
 .Root {
   margin: 20px;
   width: 100%;
+}
+
+.LanguageBounds {
+  margin-left: 12px;
+}
+
+.Language {
+  width: 80%;
+}
+
+.BoundsInput {
+  display: inline-block;
+  width: 8rem;
+  margin: 12px;
 }
