@@ -1,4 +1,6 @@
 import React from "react";
+import "whatwg-fetch";
+
 import ReactDOM from "react-dom";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 

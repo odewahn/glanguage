@@ -16,7 +16,11 @@ import TextField from "@material-ui/core/TextField";
 
 import "./index.css";
 
-import { fetchVocabulary, setTarget } from "../../app/state/vocabulary";
+import {
+  fetchVocabulary,
+  setTarget,
+  setVocabularyField,
+} from "../../app/state/vocabulary";
 import { setSettingsField } from "../../app/state/settings";
 
 const Main = () => {
@@ -27,9 +31,23 @@ const Main = () => {
     dispatch(fetchVocabulary());
   }, []);
 
+  const sayIt = () => {
+    const voices = speechSynthesis.getVoices();
+    let utterance = new window.SpeechSynthesisUtterance(
+      store.Vocabulary.target
+    );
+    //utterance.voice = voices[0];
+    speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="Root">
-      <h1>{store.Vocabulary.target}</h1>
+      <input
+        value={store.Vocabulary.target}
+        onChange={(e) => {
+          dispatch(setVocabularyField("target", e.target.value));
+        }}
+      />
       <Button
         variant="contained"
         onClick={() => {
@@ -37,6 +55,14 @@ const Main = () => {
         }}
       >
         Click me!
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          sayIt();
+        }}
+      >
+        Say it!
       </Button>
       <hr />
 

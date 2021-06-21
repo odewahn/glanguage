@@ -1,4 +1,5 @@
 import { fetchFromAPI } from "./utils";
+import "whatwg-fetch";
 
 /*********************************************************************
 ||  Define the initial reducer state
