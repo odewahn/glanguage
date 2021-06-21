@@ -32,3 +32,9 @@ npm start
 # Translation stuff
 
 Use https://cloud.google.com/speech-to-text/ to create a conversational partner for learning a language
+
+- https://cloud.google.com/speech-to-text/docs/streaming-recognize
+
+- https://www.twilio.com/blog/audio-visualisation-web-audio-api--react -- react tutorial on waveform analysis
+
+- https://medium.com/@bryanjenningz/how-to-record-and-play-audio-in-javascript-faa1b2b3e49b

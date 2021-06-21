@@ -29,6 +29,17 @@ const Main = () => {
 
   return (
     <div className="Root">
+      <h1>{store.Vocabulary.target}</h1>
+      <Button
+        variant="contained"
+        onClick={() => {
+          dispatch(setTarget());
+        }}
+      >
+        Click me!
+      </Button>
+      <hr />
+
       <div className="LanguageBounds">
         <FormControl className="Language">
           <InputLabel id="demo-simple-select-label">Language</InputLabel>
@@ -46,19 +57,6 @@ const Main = () => {
           </Select>
         </FormControl>
       </div>
-
-      <hr />
-
-      <h1>{store.Vocabulary.target}</h1>
-      <Button
-        variant="contained"
-        onClick={() => {
-          dispatch(setTarget());
-        }}
-      >
-        Click me!
-      </Button>
-      <hr />
 
       <FormControl component="fieldset">
         <FormLabel component="legend">Mode</FormLabel>

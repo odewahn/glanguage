@@ -6,7 +6,7 @@ import { fetchFromAPI } from "./utils";
 
 export const INITIAL_STATE = {
   wordlist: {},
-  target: "",
+  target: "Click the button",
 };
 
 /*********************************************************************
@@ -48,7 +48,7 @@ export function fetchVocabulary() {
 }
 
 function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.round(Math.random() * (max - min) + min);
 }
 
 // Return a random element from an array
