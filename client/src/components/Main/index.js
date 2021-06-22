@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Button } from "@material-ui/core";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -18,8 +15,8 @@ import "./index.css";
 
 import {
   fetchVocabulary,
-  setTarget,
   setVocabularyField,
+  setTarget,
 } from "../../app/state/vocabulary";
 import { setSettingsField } from "../../app/state/settings";
 
@@ -39,13 +36,9 @@ const Main = () => {
     let utterance = new window.SpeechSynthesisUtterance(
       store.Vocabulary.target
     );
-    //utterance.voice = voices[0];
+    utterance.voice = voices[store.Settings.tutor_language];
     speechSynthesis.speak(utterance);
   };
-
-  useEffect(() => {
-    setIsSpeaking(!window.speechSynthesis.speaking);
-  }, [window.speechSynthesis.speaking]);
 
   return (
     <div className="Root">
@@ -72,29 +65,24 @@ const Main = () => {
         Say it!
       </Button>
       <hr />
-      {isSpeaking ? <h1>Speaking</h1> : null}
-      <div className="LanguageBounds">
-        <FormControl className="Language">
-          <InputLabel id="demo-simple-select-label">
-            Say the prompts in
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={store.Settings.language}
-            onChange={(e) =>
-              dispatch(setSettingsField("language", e.target.value))
-            }
-          >
-            <MenuItem value={"FR"}>French</MenuItem>
-            <MenuItem value={"ES"}>Spanish</MenuItem>
-            <MenuItem value={"DE"}>German</MenuItem>
-            <MenuItem value={"FR"}>English</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
 
-      <SelectVoice />
+      <SelectVoice
+        label="Tutor's language"
+        value={store.Settings.tutor_language}
+        setVoice={(v) => {
+          console.log(v);
+          dispatch(setSettingsField("tutor_language", v));
+        }}
+      />
+
+      <SelectVoice
+        label="Student's language"
+        value={store.Settings.student_language}
+        setVoice={(v) => {
+          console.log(v);
+          dispatch(setSettingsField("student_language", v));
+        }}
+      />
 
       <FormControl component="fieldset">
         <FormLabel component="legend">Mode</FormLabel>

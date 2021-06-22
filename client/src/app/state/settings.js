@@ -6,7 +6,8 @@ import "whatwg-fetch";
 *********************************************************************/
 
 export const INITIAL_STATE = {
-  language: "FR",
+  tutor_language: 0,
+  student_language: 0,
   mode: "numbers",
   numbers_lower_bound: 0,
   numbers_upper_bound: 100,
