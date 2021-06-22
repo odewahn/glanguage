@@ -24,7 +24,9 @@ const Main = () => {
         <Select labelId={labelId} id="demo-simple-select">
           {voices.map((v) => {
             console.log(v);
-            return <MenuItem value={v}>{v.name}</MenuItem>;
+            return (
+              <MenuItem value={v}>{v.name + " (" + v.lang + ")"}</MenuItem>
+            );
           })}
         </Select>
       </FormControl>
