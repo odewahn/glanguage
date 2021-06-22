@@ -38,3 +38,9 @@ Use https://cloud.google.com/speech-to-text/ to create a conversational partner 
 - https://www.twilio.com/blog/audio-visualisation-web-audio-api--react -- react tutorial on waveform analysis
 
 - https://medium.com/@bryanjenningz/how-to-record-and-play-audio-in-javascript-faa1b2b3e49b
+
+# Speech Recognition and synthesis
+
+- https://github.com/JamesBrill/react-speech-recognition
+
+- https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis

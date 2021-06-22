@@ -23,7 +23,10 @@ import {
 } from "../../app/state/vocabulary";
 import { setSettingsField } from "../../app/state/settings";
 
+import SelectVoice from "../SelectVoice";
+
 const Main = () => {
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
 
@@ -39,6 +42,10 @@ const Main = () => {
     //utterance.voice = voices[0];
     speechSynthesis.speak(utterance);
   };
+
+  useEffect(() => {
+    setIsSpeaking(!window.speechSynthesis.speaking);
+  }, [window.speechSynthesis.speaking]);
 
   return (
     <div className="Root">
@@ -65,10 +72,12 @@ const Main = () => {
         Say it!
       </Button>
       <hr />
-
+      {isSpeaking ? <h1>Speaking</h1> : null}
       <div className="LanguageBounds">
         <FormControl className="Language">
-          <InputLabel id="demo-simple-select-label">Language</InputLabel>
+          <InputLabel id="demo-simple-select-label">
+            Say the prompts in
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -80,9 +89,12 @@ const Main = () => {
             <MenuItem value={"FR"}>French</MenuItem>
             <MenuItem value={"ES"}>Spanish</MenuItem>
             <MenuItem value={"DE"}>German</MenuItem>
+            <MenuItem value={"FR"}>English</MenuItem>
           </Select>
         </FormControl>
       </div>
+
+      <SelectVoice />
 
       <FormControl component="fieldset">
         <FormLabel component="legend">Mode</FormLabel>
