@@ -1,5 +1,6 @@
 import { fetchFromAPI } from "./utils";
 import "whatwg-fetch";
+import { sayIt } from "./voice";
 
 /*********************************************************************
 ||  Define the initial reducer state
@@ -63,16 +64,13 @@ export function setTarget() {
     const mode = getState()["Settings"]["mode"];
     console.log("mode is", mode);
 
+    let targetWord = "";
+
     switch (mode) {
       case "numbers":
-        dispatch(
-          setVocabularyField(
-            "target",
-            randomNumber(
-              getState()["Settings"]["numbers_lower_bound"],
-              getState()["Settings"]["numbers_upper_bound"]
-            )
-          )
+        targetWord = randomNumber(
+          getState()["Settings"]["numbers_lower_bound"],
+          getState()["Settings"]["numbers_upper_bound"]
         );
         break;
       case "dates":
@@ -80,16 +78,18 @@ export function setTarget() {
         const month = randomElement(wl["months"]);
         const day = randomNumber(1, 31);
         const dt = `${weekday}, ${month} ${day}`;
-        dispatch(setVocabularyField("target", dt));
+        targetWord = dt;
         break;
       case "prepositions":
-        dispatch(
-          setVocabularyField("target", randomElement(wl["prepositions"]))
-        );
+        targetWord = randomElement(wl["prepositions"]);
         break;
       default:
-        dispatch(setVocabularyField("target", "Invalid setting!!!"));
+        targetWord = "Invalid setting!!!";
     }
+
+    dispatch(setVocabularyField("target", targetWord));
+
+    sayIt(targetWord, getState().Settings.tutor_language);
   };
 }
 

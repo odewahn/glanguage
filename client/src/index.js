@@ -13,6 +13,7 @@ import rootReducer from "./app/rootReducer";
 import Users from "./components/Users";
 import Test from "./components/Test";
 import Main from "./components/Main";
+import MicTest from "./components/MicTest";
 
 // Create the store with middleware for thunks and react dev tools
 // See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers
@@ -36,6 +37,7 @@ ReactDOM.render(
       <Route exact path="/" component={Main} />
       <Route exact path="/users" component={Users} />
       <Route exact path="/test" component={Test} />
+      <Route exact path="/mic-test" component={MicTest} />
     </Router>
   </Provider>,
   document.getElementById("root")

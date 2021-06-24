@@ -19,6 +19,7 @@ import {
   setTarget,
 } from "../../app/state/vocabulary";
 import { setSettingsField } from "../../app/state/settings";
+import { sayIt } from "../../app/state/voice";
 
 import SelectVoice from "../SelectVoice";
 
@@ -31,14 +32,11 @@ const Main = () => {
     dispatch(fetchVocabulary());
   }, []);
 
-  const sayIt = () => {
-    const voices = speechSynthesis.getVoices();
-    let utterance = new window.SpeechSynthesisUtterance(
-      store.Vocabulary.target
-    );
-    utterance.voice = voices[store.Settings.tutor_language];
-    speechSynthesis.speak(utterance);
-  };
+  /*
+  useEffect(() => {
+    sayIt(store.Vocabulary.target, store.Settings.tutor_language);
+  }, [store.Vocabulary.target]);
+*/
 
   return (
     <div className="Root">
@@ -54,12 +52,12 @@ const Main = () => {
           dispatch(setTarget());
         }}
       >
-        Click me!
+        Give me a word
       </Button>
       <Button
         variant="contained"
         onClick={() => {
-          sayIt();
+          sayIt(store.Vocabulary.target, store.Settings.tutor_language);
         }}
       >
         Say it!

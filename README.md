@@ -44,3 +44,13 @@ Use https://cloud.google.com/speech-to-text/ to create a conversational partner 
 - https://github.com/JamesBrill/react-speech-recognition
 
 - https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
+
+# Other stuff
+
+- https://stackoverflow.com/questions/50976084/how-do-i-stream-live-audio-from-the-browser-to-google-cloud-speech-via-socket-io
+
+- https://github.com/googleapis/nodejs-speech
+
+- https://github.com/idevelop/google-cloud-speech-webaudio
+
+- https://stackoverflow.com/questions/57507737/send-microphone-audio-recorder-from-browser-to-google-speech-to-text-javascrip

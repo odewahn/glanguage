@@ -6,6 +6,7 @@ import "whatwg-fetch";
 *********************************************************************/
 
 export const INITIAL_STATE = {
+  speech_synthesis_api_supported: true,
   tutor_language: 0,
   student_language: 0,
   mode: "numbers",
