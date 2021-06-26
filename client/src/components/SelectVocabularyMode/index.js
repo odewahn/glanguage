@@ -5,7 +5,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
 
 import TextField from "@material-ui/core/TextField";
 
@@ -18,10 +17,9 @@ const Main = () => {
   const store = useSelector((state) => state);
 
   return (
-    <div className="Root">
-      <h1>Settings</h1>
+    <div>
+      <h3>Vocabulary to practice</h3>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Mode</FormLabel>
         <RadioGroup
           name="mode"
           value={store.Settings.mode}

@@ -10,8 +10,9 @@ import { setTutorPrompt, setTutorField } from "../../app/state/tutor";
 
 import { sayIt } from "../../app/state/utils";
 
-import SelectVoice from "../SelectVoice";
-import Settings from "../Settings";
+import SelectVocabularyMode from "../SelectVocabularyMode";
+import SelectLanguages from "../SelectLanguages";
+import SelectPracticeMode from "../SelectPracticeMode";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -42,23 +43,10 @@ const Main = () => {
       </Button>
       <hr />
 
-      <SelectVoice
-        label="Tutor's language"
-        value={store.Tutor.language}
-        setVoice={(v) => {
-          dispatch(setTutorField("language", v));
-        }}
-      />
+      <SelectLanguages />
+      <SelectPracticeMode />
 
-      <SelectVoice
-        label="Student's language"
-        value={store.Student.language}
-        setVoice={(v) => {
-          dispatch(setStudentField("language", v));
-        }}
-      />
-
-      <Settings />
+      <SelectVocabularyMode />
     </div>
   );
 };

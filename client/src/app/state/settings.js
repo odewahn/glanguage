@@ -7,6 +7,7 @@ import "whatwg-fetch";
 
 export const INITIAL_STATE = {
   speech_synthesis_api_supported: true,
+  practice_type: "listening",
   vocabulary: {},
   mode: "numbers",
   numbers_lower_bound: 0,
