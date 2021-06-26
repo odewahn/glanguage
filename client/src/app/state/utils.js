@@ -50,3 +50,17 @@ export function sayIt(phrase, language_idx) {
   utterance.voice = voices[language_idx];
   speechSynthesis.speak(utterance);
 }
+
+// Find the index for the first voice that matches the given language
+// If not found, then just return the first voice [index = 0]
+export function findLanguage(lang) {
+  let retVal = 0;
+  const voices = speechSynthesis.getVoices();
+  for (var i = 0; i < voices.length; i++) {
+    if (voices[i].lang == lang) {
+      retVal = i;
+      break;
+    }
+  }
+  return retVal;
+}

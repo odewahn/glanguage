@@ -1,4 +1,5 @@
-import { sayIt } from "./utils";
+import { sayIt, findLanguage } from "./utils";
+const DEFAULT_VOICE = "fr-FR";
 
 /*********************************************************************
 ||  Define the initial reducer state
@@ -26,6 +27,12 @@ function Main(state = INITIAL_STATE, action) {
 *********************************************************************/
 export function setTutorField(key, val) {
   return { type: "setTutorField", key, val };
+}
+
+export function setTutorDefaultLanguage() {
+  return async (dispatch, getState) => {
+    dispatch(setTutorField("language", findLanguage(DEFAULT_VOICE)));
+  };
 }
 
 export function setTutorPrompt() {

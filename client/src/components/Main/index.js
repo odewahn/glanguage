@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { Button } from "@material-ui/core";
 
 import "./index.css";
 
-import { fetchVocabulary, setSettingsField } from "../../app/state/settings";
+import { Button } from "@material-ui/core";
 
 import { setStudentField } from "../../app/state/student";
 import { setTutorPrompt, setTutorField } from "../../app/state/tutor";
@@ -13,16 +11,11 @@ import { setTutorPrompt, setTutorField } from "../../app/state/tutor";
 import { sayIt } from "../../app/state/utils";
 
 import SelectVoice from "../SelectVoice";
-
 import Settings from "../Settings";
 
 const Main = () => {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
-
-  useEffect(() => {
-    dispatch(fetchVocabulary());
-  }, []);
 
   return (
     <div className="Root">
@@ -36,16 +29,16 @@ const Main = () => {
           dispatch(setTutorPrompt());
         }}
       >
-        Give me a word
+        Set a prompt
       </Button>
 
       <Button
         variant="contained"
         onClick={() => {
-          sayIt(store.Tutor.prompt, store.Student.language);
+          sayIt(store.Tutor.prompt, store.Tutor.language);
         }}
       >
-        Say it!
+        Repeat Prompt
       </Button>
       <hr />
 

@@ -15,6 +15,10 @@ import Test from "./components/DictaphoneSpeechRecognition";
 import Main from "./components/Main";
 import MicTest from "./components/MicTest";
 
+import { fetchVocabulary } from "./app/state/settings";
+import { setTutorDefaultLanguage } from "./app/state/tutor";
+import { setStudentDefaultLanguage } from "./app/state/student";
+
 // Create the store with middleware for thunks and react dev tools
 // See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers
 
@@ -27,7 +31,17 @@ const composedEnhancer = compose(
 
 const store = createStore(rootReducer, undefined, composedEnhancer);
 
-window.store = store;
+store.dispatch(fetchVocabulary()); // Load the default vocabulary
+
+// Note that it can take a minute for the languages to load, so we need to set up a callback
+// so that the defaults get set once the speech API is fully loaded and initalized
+const speech = window.speechSynthesis;
+if (speech.onvoiceschanged !== undefined) {
+  speech.onvoiceschanged = () => {
+    store.dispatch(setTutorDefaultLanguage()); // Load the tutor's default language
+    store.dispatch(setStudentDefaultLanguage()); // Load the students's default language
+  };
+}
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,5 +1,5 @@
-import { fetchFromAPI } from "./utils";
-import "whatwg-fetch";
+import { findLanguage } from "./utils";
+const DEFAULT_VOICE = "en-US";
 
 /*********************************************************************
 ||  Define the initial reducer state
@@ -27,6 +27,12 @@ function Main(state = INITIAL_STATE, action) {
   *********************************************************************/
 export function setStudentField(key, val) {
   return { type: "setStudentField", key, val };
+}
+
+export function setStudentDefaultLanguage() {
+  return async (dispatch, getState) => {
+    dispatch(setStudentField("language", findLanguage(DEFAULT_VOICE)));
+  };
 }
 
 export function setStudentResponse(r) {
