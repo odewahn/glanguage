@@ -1,22 +1,20 @@
-import { fetchFromAPI } from "./utils";
-import "whatwg-fetch";
-import { sayIt } from "./voice";
+import { sayIt } from "./utils";
 
 /*********************************************************************
 ||  Define the initial reducer state
 *********************************************************************/
 
 export const INITIAL_STATE = {
-  wordlist: {},
-  target: "Click the button",
+  language: 0,
+  prompt: "Click the button to get started",
 };
 
 /*********************************************************************
-  ||  Reducer
-  *********************************************************************/
+||  Reducer
+*********************************************************************/
 function Main(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case "setVocabularyField":
+    case "setTutorField":
       return Object.assign({}, state, { [action.key]: action.val });
     default:
       return state;
@@ -24,43 +22,26 @@ function Main(state = INITIAL_STATE, action) {
 }
 
 /*********************************************************************
-  ||  Actions
-  *********************************************************************/
-export function setVocabularyField(key, val) {
-  return { type: "setVocabularyField", key, val };
+||  Actions
+*********************************************************************/
+export function setTutorField(key, val) {
+  return { type: "setTutorField", key, val };
 }
 
-export function fetchVocabulary() {
+export function setTutorPrompt() {
+  // Get a random number
+  function randomNumber(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+
+  // Return a random element from an array
+  function randomElement(items) {
+    var item = items[Math.floor(Math.random() * items.length)];
+    return item;
+  }
+
   return async (dispatch, getState) => {
-    console.log("doin it!");
-    dispatch(
-      fetchFromAPI(
-        "/api/vocabulary",
-        {},
-        (data) => {
-          console.log(data);
-          dispatch(setVocabularyField("wordlist", data));
-        },
-        (err) => {
-          console.log(err);
-        }
-      )
-    );
-  };
-}
-
-function randomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-// Return a random element from an array
-function randomElement(items) {
-  var item = items[Math.floor(Math.random() * items.length)];
-  return item;
-}
-export function setTarget() {
-  return async (dispatch, getState) => {
-    const wl = getState()["Vocabulary"]["wordlist"];
+    const wl = getState()["Settings"]["vocabulary"];
     const mode = getState()["Settings"]["mode"];
     console.log("mode is", mode);
 
@@ -87,9 +68,9 @@ export function setTarget() {
         targetWord = "Invalid setting!!!";
     }
 
-    dispatch(setVocabularyField("target", targetWord));
+    dispatch(setTutorField("prompt", targetWord));
 
-    sayIt(targetWord, getState().Settings.tutor_language);
+    sayIt(targetWord, getState().Tutor.language);
   };
 }
 

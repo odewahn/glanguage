@@ -11,21 +11,19 @@ import thunk from "redux-thunk";
 import rootReducer from "./app/rootReducer";
 
 import Users from "./components/Users";
-import Test from "./components/Test";
+import Test from "./components/DictaphoneSpeechRecognition";
 import Main from "./components/Main";
 import MicTest from "./components/MicTest";
 
 // Create the store with middleware for thunks and react dev tools
 // See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers
 
-/*
 const composedEnhancer = compose(
   applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
-*/
 
-const composedEnhancer = compose(applyMiddleware(thunk));
+//const composedEnhancer = compose(applyMiddleware(thunk));
 
 const store = createStore(rootReducer, undefined, composedEnhancer);
 

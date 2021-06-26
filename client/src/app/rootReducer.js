@@ -1,9 +1,12 @@
 import { combineReducers } from "redux";
-import Vocabulary from "./state/vocabulary.js";
+
 import Settings from "./state/settings.js";
+import Tutor from "./state/tutor.js";
+import Student from "./state/student.js";
 
 const rootReducer = combineReducers({
-  Vocabulary,
   Settings,
+  Tutor,
+  Student,
 });
 export default rootReducer;

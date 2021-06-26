@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+
+import { setStudentResponse } from "../../app/state/student";
 
 const Dictaphone = () => {
   const {
@@ -11,6 +15,13 @@ const Dictaphone = () => {
     browserSupportsSpeechRecognition,
     finalTranscript,
   } = useSpeechRecognition();
+
+  const store = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setStudentResponse(finalTranscript));
+  }, [finalTranscript]);
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;

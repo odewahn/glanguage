@@ -54,3 +54,5 @@ Use https://cloud.google.com/speech-to-text/ to create a conversational partner 
 - https://github.com/idevelop/google-cloud-speech-webaudio
 
 - https://stackoverflow.com/questions/57507737/send-microphone-audio-recorder-from-browser-to-google-speech-to-text-javascrip
+
+- https://fostermade.co/blog/making-speech-to-text-work-with-react-native-and-expo
