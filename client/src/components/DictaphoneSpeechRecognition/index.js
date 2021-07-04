@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import SpeechRecognition, {
@@ -30,7 +30,16 @@ const Dictaphone = () => {
   return (
     <div>
       <p>Microphone: {listening ? "on" : "off"}</p>
-      <button onClick={SpeechRecognition.startListening}>Start</button>
+      <button
+        onClick={() => {
+          const voice = store.Settings.voices[store.Tutor.language].lang;
+
+          console.log("listening in", voice);
+          SpeechRecognition.startListening({ language: voice });
+        }}
+      >
+        Start
+      </button>
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={resetTranscript}>Reset</button>
       <p>{transcript}</p>
