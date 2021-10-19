@@ -91,9 +91,11 @@ Returns
 # Using service account credentials with Heroku
 
 - First [create a service account](https://www.labnol.org/code/20365-create-google-service-accounts). Make sure you give it permissions to use the translate API.
+
 - Download the json credential file. It will look something like this:
 
-````{
+```
+{
   "type": "service_account",
   "project_id": "andrews-test-repo",
   "private_key_id": "...",
@@ -104,35 +106,32 @@ Returns
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/glanguage%40andrews-test-repo.iam.gserviceaccount.com"
-}```
-
-* Save the file, and then use the bash `base64` utility to encode it to base64
-
-````
-
-base64 < andrews-test-repo-5d6a78cfbde4.json
-
-````
-
-* Once you have it encoded, you can safely use it as an environment variable in a `.env` file or as a Heroku environment variable
-
-* To decode it, use the `Buffer.from` function, like this:
-
-```var ascii = new Buffer.from(process.env.CREDS64, "base64").toString("ascii");
-let creds = JSON.parse(ascii);```
-
-* Finally, it's also worth noting how to actuall pass it to the translation SDK:
-
-````
-
-const translate = new Translate({
-project_id: creds["project_id"],
-credentials: {
-client_email: creds["client_email"],
-private_key: creds["private_key"],
-},
-});
-
+}
 ```
 
+- Save the file, and then use the bash `base64` utility to encode it
+
+```
+$ base64 < andrews-test-repo-5d6a78cfbde4.json
+```
+
+- Once you have it encoded, you can safely use it as an environment variable in a `.env` file or as a Heroku environment variable
+
+- To decode it, use the `Buffer.from` function, like this:
+
+```
+var ascii = new Buffer.from(process.env.CREDS64, "base64").toString("ascii");
+let creds = JSON.parse(ascii);
+```
+
+- Finally, it's also worth noting how to actuall pass it to the translation SDK:
+
+```
+const translate = new Translate({
+   project_id: creds["project_id"],
+   credentials: {
+      client_email: creds["client_email"],
+      private_key: creds["private_key"],
+   },
+});
 ```
