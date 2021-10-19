@@ -1,7 +1,8 @@
 const express = require("express");
 const path = require("path");
-const dotenv = require("dotenv");
 
+// Load environment variables from .env file
+const dotenv = require("dotenv");
 dotenv.config();
 
 var users = require("./routes/users");
@@ -16,6 +17,8 @@ app.use("/api/users", users);
 app.use("/api/vocabulary", vocabulary);
 
 console.log("THE API KEY IS", process.env.TRANSLATION_API_KEY);
+
+console.log("THE CREDENTIALS ARE", process.env.TRANSLATION_API_CREDENTIALS);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
