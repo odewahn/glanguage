@@ -1,14 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import FormControl from "@material-ui/core/FormControl";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-
-import TextField from "@material-ui/core/TextField";
-
-//import "./index.css";
+import {
+  FormControl,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
 
 import { setSettingsField } from "../../app/state/settings";
 

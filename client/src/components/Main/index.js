@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./index.css";
 
-import { Button, Box, Slider } from "@material-ui/core";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
 //import Stack from "@mui/material/Stack";
-//import { Slider } from "@material-ui/core";
+//import { Slider } from "@mui/core";
 
 import { setStudentField } from "../../app/state/student";
 import {
