@@ -1,13 +1,12 @@
-// Load environment variables from .env file
-const dotenv = require("dotenv");
-dotenv.config();
+const express = require("express");
+var router = express.Router();
+const { Translate } = require("@google-cloud/translate").v2;
 
 // Convert the base64 encoded credentials to an object
 var ascii = new Buffer.from(process.env.CREDS64, "base64").toString("ascii");
 let creds = JSON.parse(ascii);
 
 // Create the client
-const { Translate } = require("@google-cloud/translate").v2;
 const translate = new Translate({
   project_id: creds["project_id"],
   credentials: {
@@ -16,19 +15,16 @@ const translate = new Translate({
   },
 });
 
-// Give it something to do
-async function quickStart() {
+router.get("/", async function (req, res, next) {
+  console.log(req.query);
   // The text to translate
-  const text = "C'est bien d'être le roi!";
+  const text = req.query.text;
+  const target = req.query.language.split("-")[0];
 
-  // The target language
-  const target = "en";
-
-  // Translates some text into Russian
+  // Translates the
   const [translation] = await translate.translate(text, target);
-  console.log(`Text: ${text}`);
-  console.log(`Translation: ${translation}`);
-}
 
-// Call it
-quickStart();
+  res.json({ translation: translation });
+});
+
+module.exports = router;

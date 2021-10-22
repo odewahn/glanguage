@@ -1,4 +1,8 @@
+import "whatwg-fetch";
+import { fetchFromAPI } from "./utils";
 import { sayIt, findLanguage } from "./utils";
+import { setStudentResponse } from "./student";
+
 const DEFAULT_VOICE = "fr-FR";
 
 /*********************************************************************
@@ -32,6 +36,25 @@ export function setTutorField(key, val) {
 export function setTutorDefaultLanguage() {
   return async (dispatch, getState) => {
     dispatch(setTutorField("language", findLanguage(DEFAULT_VOICE)));
+  };
+}
+
+export function translateText(text, language) {
+  return async (dispatch, getState) => {
+    var voices = await speechSynthesis.getVoices();
+    dispatch(
+      fetchFromAPI(
+        "/api/translate",
+        { text: text, language: voices[language]["lang"] },
+        (data) => {
+          console.log(data);
+          dispatch(setStudentResponse(data["translation"]));
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+    );
   };
 }
 
@@ -77,7 +100,8 @@ export function setTutorPrompt() {
 
     dispatch(setTutorField("prompt", targetWord));
 
-    sayIt(targetWord, getState().Tutor.language);
+    dispatch(translateText(targetWord, getState().Tutor.language));
+    sayIt(targetWord, getState().Student.language);
   };
 }
 

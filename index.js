@@ -5,8 +5,13 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 
+// Convert the base64 encoded credentials to an object
+var ascii = new Buffer.from(process.env.CREDS64, "base64").toString("ascii");
+let creds = JSON.parse(ascii);
+
 var users = require("./routes/users");
 var vocabulary = require("./routes/vocabulary");
+var translate = require("./routes/translate");
 
 const app = express();
 
@@ -15,10 +20,9 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/api/users", users);
 app.use("/api/vocabulary", vocabulary);
+app.use("/api/translate", translate);
 
-console.log("THE API KEY IS", process.env.TRANSLATION_API_KEY);
-
-console.log("THE CREDENTIALS ARE", process.env.TRANSLATION_API_CREDENTIALS);
+console.log("THE API KEY IS", creds);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

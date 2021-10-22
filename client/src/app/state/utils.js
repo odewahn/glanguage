@@ -44,9 +44,11 @@ export function fetchFromAPI(path, query, onSuccess, onFailure, signal) {
 }
 
 // Say the given phrase in the given voice
-export function sayIt(phrase, language_idx) {
+export function sayIt(phrase, language_idx, utterance_rate = 1.0) {
   const voices = speechSynthesis.getVoices();
-  let utterance = new window.SpeechSynthesisUtterance(phrase);
+  var utterance = new window.SpeechSynthesisUtterance(phrase);
+  utterance.rate = utterance_rate;
+  console.log(utterance.rate);
   utterance.voice = voices[language_idx];
   speechSynthesis.speak(utterance);
 }

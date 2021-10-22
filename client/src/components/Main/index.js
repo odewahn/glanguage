@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./index.css";
 
-import { Button } from "@material-ui/core";
+import { Button, Box, Slider } from "@material-ui/core";
+//import Stack from "@mui/material/Stack";
+//import { Slider } from "@material-ui/core";
 
 import { setStudentField } from "../../app/state/student";
-import { setTutorPrompt, setTutorField } from "../../app/state/tutor";
+import {
+  setTutorPrompt,
+  setTutorField,
+  translateText,
+} from "../../app/state/tutor";
 
 import { sayIt } from "../../app/state/utils";
 
@@ -17,13 +23,10 @@ import SelectPracticeMode from "../SelectPracticeMode";
 const Main = () => {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
+  const [hintSpeechRate, setHintSpeechRate] = useState(100);
 
   return (
     <div className="Root">
-      <p>{store.Tutor.prompt}</p>
-
-      <hr />
-
       <Button
         variant="contained"
         onClick={() => {
@@ -32,20 +35,47 @@ const Main = () => {
       >
         Set a prompt
       </Button>
+      <hr />
+      <p>{store.Tutor.prompt}</p>
+      <p>{store.Student.response}</p>
+      <hr />
 
       <Button
         variant="contained"
         onClick={() => {
-          sayIt(store.Tutor.prompt, store.Tutor.language);
+          sayIt(store.Tutor.prompt, store.Student.language);
         }}
       >
-        Repeat Prompt
+        Say the prompt
       </Button>
       <hr />
 
+      <Box style={{ width: "200px", margin: "10px" }}>
+        Slow
+        <Slider
+          alignItems="center"
+          value={hintSpeechRate}
+          onChange={(e, v) => {
+            console.log(v);
+            setHintSpeechRate(v);
+          }}
+        />
+        Fast
+      </Box>
+      <Button
+        variant="contained"
+        onClick={() => {
+          //dispatch(translateText(store.Tutor.prompt, store.Tutor.language));
+          var rate = 0.5 + (0.5 * hintSpeechRate) / 100;
+          sayIt(store.Student.response, store.Tutor.language, rate);
+        }}
+      >
+        Say the response
+      </Button>
+
+      <hr />
       <SelectLanguages />
       <SelectPracticeMode />
-
       <SelectVocabularyMode />
     </div>
   );

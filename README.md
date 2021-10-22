@@ -59,6 +59,8 @@ Use https://cloud.google.com/speech-to-text/ to create a conversational partner 
 
 # Google Translate API
 
+- https://medium.com/analytics-vidhya/how-to-use-google-cloud-translation-api-with-nodejs-6bdccc0c2218
+
 - https://stackoverflow.com/questions/49664844/use-google-service-account-securely-with-heroku
 
 - https://github.com/googleapis/google-auth-library-nodejs#loading-credentials-from-environment-variables
