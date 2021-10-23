@@ -11,6 +11,7 @@ const DEFAULT_VOICE = "fr-FR";
 
 export const INITIAL_STATE = {
   language: 0,
+  rate: 100,
   prompt: "Click the button to get started",
 };
 
