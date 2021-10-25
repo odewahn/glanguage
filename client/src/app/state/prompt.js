@@ -1,16 +1,12 @@
 import "whatwg-fetch";
 import { fetchFromAPI } from "./utils";
-import { sayIt, findLanguage } from "./utils";
-
-const DEFAULT_VOICE = "fr-FR";
+import { sayIt } from "./utils";
 
 /*********************************************************************
 ||  Define the initial reducer state
 *********************************************************************/
 
 export const INITIAL_STATE = {
-  language: 0,
-  rate: 100,
   prompt: "Click the button to get started",
   prompt_translation: "Translating...",
 };
@@ -20,7 +16,7 @@ export const INITIAL_STATE = {
 *********************************************************************/
 function Main(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case "setTutorField":
+    case "setPromptField":
       return Object.assign({}, state, { [action.key]: action.val });
     default:
       return state;
@@ -30,14 +26,8 @@ function Main(state = INITIAL_STATE, action) {
 /*********************************************************************
 ||  Actions
 *********************************************************************/
-export function setTutorField(key, val) {
+export function setPromptField(key, val) {
   return { type: "setTutorField", key, val };
-}
-
-export function setTutorDefaultLanguage() {
-  return async (dispatch, getState) => {
-    dispatch(setTutorField("language", findLanguage(DEFAULT_VOICE)));
-  };
 }
 
 export function translateText(text, language) {
@@ -59,7 +49,7 @@ export function translateText(text, language) {
   };
 }
 
-export function setTutorPrompt() {
+export function setPrompt() {
   // Get a random number
   function randomNumber(min, max) {
     return Math.round(Math.random() * (max - min) + min);
@@ -101,8 +91,6 @@ export function setTutorPrompt() {
 
     await dispatch(setTutorField("prompt", targetWord));
     await dispatch(translateText(targetWord, getState().Tutor.language));
-    console.log("saying it");
-    await dispatch(sayPrompt());
   };
 }
 

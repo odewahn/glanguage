@@ -10,6 +10,7 @@ import {
   setTutorPrompt,
   setTutorField,
   translateText,
+  sayPrompt,
 } from "../../app/state/tutor";
 
 import { sayIt } from "../../app/state/utils";
@@ -17,6 +18,7 @@ import { sayIt } from "../../app/state/utils";
 import SelectVocabularyMode from "../SelectVocabularyMode";
 import SelectLanguages from "../SelectLanguages";
 import SelectPracticeMode from "../SelectPracticeMode";
+import Dictaphone from "../DictaphoneSpeechRecognition";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -34,13 +36,13 @@ const Main = () => {
       </Button>
       <hr />
       <p>{store.Tutor.prompt}</p>
-      <p>{store.Student.response}</p>
+      <p>{store.Tutor.prompt_translation}</p>
       <hr />
 
       <Button
         variant="contained"
         onClick={() => {
-          sayIt(store.Tutor.prompt, store.Student.language);
+          dispatch(sayPrompt());
         }}
       >
         Say the prompt
@@ -61,13 +63,22 @@ const Main = () => {
       <Button
         variant="contained"
         onClick={() => {
-          sayIt(store.Student.response, store.Tutor.language, store.Tutor.rate);
+          sayIt(
+            store.Tutor.prompt_translation,
+            store.Tutor.language,
+            store.Tutor.rate
+          );
         }}
       >
         Say the response
       </Button>
 
       <hr />
+
+      <Dictaphone />
+
+      <hr />
+
       <SelectLanguages />
       <SelectPracticeMode />
       <SelectVocabularyMode />

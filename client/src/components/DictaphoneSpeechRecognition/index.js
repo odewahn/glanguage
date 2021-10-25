@@ -33,7 +33,6 @@ const Dictaphone = () => {
       <button
         onClick={() => {
           const voice = store.Settings.voices[store.Tutor.language].lang;
-
           console.log("listening in", voice);
           SpeechRecognition.startListening({ language: voice });
         }}
@@ -42,8 +41,6 @@ const Dictaphone = () => {
       </button>
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={resetTranscript}>Reset</button>
-      <p>{transcript}</p>
-      <p>{finalTranscript}</p>
     </div>
   );
 };
