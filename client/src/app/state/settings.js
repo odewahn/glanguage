@@ -6,13 +6,13 @@ import "whatwg-fetch";
 *********************************************************************/
 
 export const INITIAL_STATE = {
-  voices: [],
   speech_synthesis_api_supported: true,
   practice_type: "listening",
   vocabulary: {},
-  mode: "numbers",
+  mode: "dates",
   numbers_lower_bound: 0,
   numbers_upper_bound: 100,
+  voices: [],
 };
 
 /*********************************************************************

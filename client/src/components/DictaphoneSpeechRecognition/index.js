@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import SpeechRecognition, {
@@ -9,7 +9,6 @@ import { setStudentResponse } from "../../app/state/student";
 
 const Dictaphone = () => {
   const {
-    transcript,
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,

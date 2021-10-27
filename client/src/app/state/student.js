@@ -1,5 +1,5 @@
 import { findLanguage } from "./utils";
-const DEFAULT_VOICE = "en-US";
+const DEFAULT_LANGUAGE = "en-US";
 
 /*********************************************************************
 ||  Define the initial reducer state
@@ -31,7 +31,7 @@ export function setStudentField(key, val) {
 
 export function setStudentDefaultLanguage() {
   return async (dispatch, getState) => {
-    dispatch(setStudentField("language", findLanguage(DEFAULT_VOICE)));
+    dispatch(setStudentField("language", findLanguage(DEFAULT_LANGUAGE)));
   };
 }
 

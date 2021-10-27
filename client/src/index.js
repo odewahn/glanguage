@@ -31,12 +31,13 @@ const store = createStore(rootReducer, undefined, composedEnhancer);
 
 store.dispatch(fetchVocabulary()); // Load the default vocabulary
 
-// Note that it can take a minute for the languages to load, so we need to set up a callback
-// so that the defaults get set once the speech API is fully loaded and initalized
 const speech = window.speechSynthesis;
+
 if (speech.onvoiceschanged !== undefined) {
   speech.onvoiceschanged = () => {
+    console.log("getting the middleware");
     const voices = speech.getVoices();
+    console.log(voices);
     store.dispatch(setTutorDefaultLanguage()); // Load the tutor's default language
     store.dispatch(setStudentDefaultLanguage()); // Load the students's default language
     store.dispatch(setSettingsField("voices", voices)); // Load the available voices

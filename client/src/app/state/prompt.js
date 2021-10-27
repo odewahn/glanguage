@@ -27,19 +27,21 @@ function Main(state = INITIAL_STATE, action) {
 ||  Actions
 *********************************************************************/
 export function setPromptField(key, val) {
-  return { type: "setTutorField", key, val };
+  return { type: "setPromptField", key, val };
 }
 
 export function translateText(text, language) {
-  return async (dispatch, getState) => {
-    var voices = await speechSynthesis.getVoices();
+  console.log("looking for language", language);
+  return (dispatch, getState) => {
+    var voices = getState().Settings.voices;
+    console.log("language is ", language);
     dispatch(
       fetchFromAPI(
         "/api/translate",
         { text: text, language: voices[language]["lang"] },
         (data) => {
           console.log(data);
-          dispatch(setTutorField("prompt_translation", data["translation"]));
+          dispatch(setPromptField("prompt_translation", data["translation"]));
         },
         (err) => {
           console.log(err);
@@ -89,21 +91,26 @@ export function setPrompt() {
         targetWord = "Invalid setting!!!";
     }
 
-    await dispatch(setTutorField("prompt", targetWord));
-    await dispatch(translateText(targetWord, getState().Tutor.language));
+    dispatch(setPromptField("prompt", targetWord));
+    dispatch(translateText(targetWord, getState().Tutor.language));
   };
 }
 
+// Says the prompt based on the users lerning mode
+// If the mode is speaking, then the student listents in their language and responds in the tutor (i.e., en->fr)
+// If the mode is listening, the student listens in their tutors language and responds in the own (i.e., fr->en)
 export function sayPrompt() {
   return (dispatch, getState) => {
-    var targetWord = getState().Tutor.prompt;
+    var targetWord = getState().Prompt.prompt_translation;
     var targetLanguage = getState().Tutor.language;
-    console.log(getState().Settings.practice_type);
+    var targetRate = getState().Tutor.rate;
     if (getState().Settings.practice_type === "speaking") {
-      targetWord = getState().Student.prompt;
+      targetWord = getState().Prompt.prompt;
       targetLanguage = getState().Student.language;
+      targetRate = 100;
     }
-    sayIt(targetWord, targetLanguage, getState().rate);
+    console.log("saying something???", targetWord, targetLanguage);
+    sayIt(targetWord, targetLanguage, targetRate);
   };
 }
 

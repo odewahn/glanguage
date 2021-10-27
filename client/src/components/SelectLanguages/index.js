@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setStudentField } from "../../app/state/student";
-import { setTutorField } from "../../app/state/tutor";
+//import { setStudentField } from "../../app/state/student";
+import { setTutorField, setTutorDefaultLanguage } from "../../app/state/tutor";
 
 import SelectVoice from "../SelectVoice";
 
@@ -18,14 +18,6 @@ const Main = () => {
         value={store.Tutor.language}
         setVoice={(v) => {
           dispatch(setTutorField("language", v));
-        }}
-      />
-
-      <SelectVoice
-        label="I speak..."
-        value={store.Student.language}
-        setVoice={(v) => {
-          dispatch(setStudentField("language", v));
         }}
       />
     </div>
