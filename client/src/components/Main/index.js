@@ -82,6 +82,7 @@ const Main = () => {
       <hr />
 
       <Dictaphone />
+      {store.Student.response}
 
       <hr />
 

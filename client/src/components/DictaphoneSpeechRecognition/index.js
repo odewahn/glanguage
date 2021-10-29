@@ -12,6 +12,7 @@ const Dictaphone = () => {
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
+    transcript,
     finalTranscript,
   } = useSpeechRecognition();
 
@@ -40,6 +41,7 @@ const Dictaphone = () => {
       </button>
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
       <button onClick={resetTranscript}>Reset</button>
+      <i>{transcript}</i>
     </div>
   );
 };
