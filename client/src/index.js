@@ -10,8 +10,8 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./app/rootReducer";
 
-import Test from "./components/DictaphoneSpeechRecognition";
 import Main from "./components/Main";
+import Settings from "./components/Settings";
 
 import { fetchVocabulary, setSettingsField } from "./app/state/settings";
 import { setTutorDefaultLanguage } from "./app/state/tutor";
@@ -24,8 +24,6 @@ const composedEnhancer = compose(
   applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
-
-//const composedEnhancer = compose(applyMiddleware(thunk));
 
 const store = createStore(rootReducer, undefined, composedEnhancer);
 
@@ -48,7 +46,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Route exact path="/" component={Main} />
-      <Route exact path="/test" component={Test} />
+      <Route exact path="/settings" component={Settings} />
     </Router>
   </Provider>,
   document.getElementById("root")

@@ -8,7 +8,7 @@ import { sayIt } from "./utils";
 
 export const INITIAL_STATE = {
   prompt: "Click the button to get started",
-  prompt_translation: "Translating...",
+  prompt_translation: "",
 };
 
 /*********************************************************************

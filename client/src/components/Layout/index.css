@@ -1,0 +1,15 @@
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+.Root {
+  width: 100%;
+}
+
+.Content {
+  margin-right: 20px;
+  margin-left: 20px;
+}

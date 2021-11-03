@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import "./index.css";
+import { Button, Fab, Stack } from "@mui/material";
+import HearingIcon from "@mui/icons-material/Hearing";
 
-import { Button, Box, Slider, Stack } from "@mui/material";
-
-import { setTutorField } from "../../app/state/tutor";
+import Layout from "../Layout";
 
 import { setPrompt, sayPrompt } from "../../app/state/prompt";
 
 import { sayIt } from "../../app/state/utils";
 
-import SelectVocabularyMode from "../SelectVocabularyMode";
-import SelectLanguages from "../SelectLanguages";
-import SelectPracticeMode from "../SelectPracticeMode";
 import Dictaphone from "../DictaphoneSpeechRecognition";
+
+import "./index.css";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -27,47 +25,10 @@ const Main = () => {
   }, [store.Prompt.prompt_translation]);
 
   return (
-    <div className="Root">
-      <Button
-        variant="contained"
-        onClick={() => {
-          dispatch(setPrompt());
-        }}
-      >
-        Set a prompt
-      </Button>
-      <hr />
-      <p>{store.Prompt.prompt}</p>
-      <p>{store.Prompt.prompt_translation}</p>
+    <Layout title="Pratice">
       <hr />
 
       <Button
-        variant="contained"
-        onClick={() => {
-          //dispatch(sayPrompt());
-          sayIt(store.Prompt.prompt, store.Student.language);
-        }}
-      >
-        Say the prompt
-      </Button>
-      <hr />
-
-      <Box style={{ width: "200px", margin: "10px" }}>
-        <Stack direction="row" spacing={2}>
-          Slow
-          <Slider
-            value={store.Tutor.rate}
-            mim={0}
-            max={100}
-            onChange={(e, v) => {
-              dispatch(setTutorField("rate", v));
-            }}
-          />
-          Fast
-        </Stack>
-      </Box>
-      <Button
-        variant="contained"
         onClick={() => {
           sayIt(
             store.Prompt.prompt_translation,
@@ -76,20 +37,31 @@ const Main = () => {
           );
         }}
       >
-        Say the response
+        Repeat
       </Button>
 
+      <Button
+        onClick={() => {
+          sayIt(store.Prompt.prompt_translation, store.Tutor.language, 0);
+        }}
+      >
+        Repeat slowly
+      </Button>
       <hr />
 
-      <Dictaphone />
-      {store.Student.response}
+      <Stack direction="row" spacing={2}>
+        <Fab
+          onClick={() => {
+            dispatch(setPrompt());
+          }}
+        >
+          <HearingIcon />
+        </Fab>
+        <Dictaphone />
+      </Stack>
 
-      <hr />
-
-      <SelectLanguages />
-      <SelectPracticeMode />
-      <SelectVocabularyMode />
-    </div>
+      <h2>{store.Student.response}</h2>
+    </Layout>
   );
 };
 

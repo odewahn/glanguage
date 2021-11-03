@@ -5,7 +5,12 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
+import { Fab } from "@mui/material";
+import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+
 import { setStudentResponse } from "../../app/state/student";
+
+import "./index.css";
 
 const Dictaphone = () => {
   const {
@@ -29,19 +34,22 @@ const Dictaphone = () => {
 
   return (
     <div>
-      <p>Microphone: {listening ? "on" : "off"}</p>
-      <button
-        onClick={() => {
-          const voice = store.Settings.voices[store.Tutor.language].lang;
-          console.log("listening in", voice);
-          SpeechRecognition.startListening({ language: voice });
-        }}
-      >
-        Start
-      </button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
-      <i>{transcript}</i>
+      {listening ? (
+        <Fab className="MicOn" onClick={SpeechRecognition.stopListening}>
+          <RecordVoiceOverIcon className="HotMicIcon" />
+        </Fab>
+      ) : (
+        <Fab
+          onClick={() => {
+            const voice = store.Settings.voices[store.Tutor.language].lang;
+            SpeechRecognition.startListening({
+              language: voice,
+            });
+          }}
+        >
+          <RecordVoiceOverIcon />
+        </Fab>
+      )}
     </div>
   );
 };

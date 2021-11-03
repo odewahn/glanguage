@@ -6,6 +6,7 @@ import "whatwg-fetch";
 *********************************************************************/
 
 export const INITIAL_STATE = {
+  microphone_lisening: false,
   speech_synthesis_api_supported: true,
   practice_type: "listening",
   vocabulary: {},
