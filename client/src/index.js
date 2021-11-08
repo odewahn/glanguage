@@ -45,8 +45,8 @@ if (speech.onvoiceschanged !== undefined) {
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Route exact path="/" component={Main} />
-      <Route exact path="/settings" component={Settings} />
+      <Route exact path="/main" component={Main} />
+      <Route exact path="/" component={Settings} />
     </Router>
   </Provider>,
   document.getElementById("root")

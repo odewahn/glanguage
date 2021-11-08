@@ -72,7 +72,7 @@ const Main = (props) => {
             <div>
               <SettingsIcon
                 onClick={() => {
-                  history.push("/settings");
+                  history.push("/");
                 }}
               />
             </div>

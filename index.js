@@ -22,8 +22,6 @@ app.use("/api/users", users);
 app.use("/api/vocabulary", vocabulary);
 app.use("/api/translate", translate);
 
-//console.log("THE API KEY IS", creds);
-
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get("*", (req, res) => {

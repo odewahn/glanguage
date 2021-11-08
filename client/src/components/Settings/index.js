@@ -32,8 +32,7 @@ const Main = () => {
             onClick={() => {
               dispatch(setPromptField("prompt", ""));
               dispatch(setPrompt());
-              history.push("/");
-              console.log("click!");
+              history.push("/main");
             }}
           >
             <ConnectWithoutContactIcon />
