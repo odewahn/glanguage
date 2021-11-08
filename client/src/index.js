@@ -25,7 +25,11 @@ const composedEnhancer = compose(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
+//const composedEnhancer = compose(applyMiddleware(thunk));
+
 const store = createStore(rootReducer, undefined, composedEnhancer);
+
+//const store = createStore(rootReducer);
 
 store.dispatch(fetchVocabulary()); // Load the default vocabulary
 
