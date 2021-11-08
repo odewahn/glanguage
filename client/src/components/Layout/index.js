@@ -27,6 +27,13 @@ const Main = (props) => {
       fontFamily: ["Montserrat", "sans-serif"].join(","),
     },
   });
+
+        <RecordVoiceOverIcon
+                onClick={() => {
+                  history.push("/");
+                }}
+              />
+              
 */
 
   const theme = createMuiTheme({
@@ -47,9 +54,6 @@ const Main = (props) => {
       primary: {
         main: "#333333",
       },
-      text: {
-        primary: "#ff0000",
-      },
     },
     typography: {
       fontFamily: "Montserrat",
@@ -66,12 +70,6 @@ const Main = (props) => {
             </Typography>
 
             <div>
-              <RecordVoiceOverIcon
-                onClick={() => {
-                  history.push("/");
-                }}
-              />
-
               <SettingsIcon
                 onClick={() => {
                   history.push("/settings");

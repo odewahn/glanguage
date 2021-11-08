@@ -7,8 +7,9 @@ import SpeechRecognition, {
 
 import { Fab } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+import MicIcon from "@mui/icons-material/Mic";
 
-import { setStudentResponse } from "../../app/state/student";
+import { setStudentField } from "../../app/state/student";
 
 import "./index.css";
 
@@ -25,8 +26,12 @@ const Dictaphone = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setStudentResponse(finalTranscript));
+    dispatch(setStudentField("response", finalTranscript));
   }, [finalTranscript]);
+
+  useEffect(() => {
+    dispatch(setStudentField("response_in_progress", transcript));
+  }, [transcript]);
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -36,18 +41,26 @@ const Dictaphone = () => {
     <div>
       {listening ? (
         <Fab className="MicOn" onClick={SpeechRecognition.stopListening}>
-          <RecordVoiceOverIcon className="HotMicIcon" />
+          <MicIcon className="HotMicIcon" />
         </Fab>
       ) : (
         <Fab
           onClick={() => {
-            const voice = store.Settings.voices[store.Tutor.language].lang;
+            var expected_language = store.Tutor.language;
+            console.log("Student language is", store.Student.language);
+
+            if (store.Settings.practice_type == "listening") {
+              expected_language = store.Student.language;
+            }
+
+            console.log(expected_language);
+            const voice = store.Settings.voices[expected_language].lang;
             SpeechRecognition.startListening({
               language: voice,
             });
           }}
         >
-          <RecordVoiceOverIcon />
+          <MicIcon />
         </Fab>
       )}
     </div>

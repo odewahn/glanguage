@@ -11,16 +11,12 @@ const Main = () => {
   const store = useSelector((state) => state);
 
   return (
-    <div>
-      <h3>Languages</h3>
-      <SelectVoice
-        label="My tutor speaks..."
-        value={store.Tutor.language}
-        setVoice={(v) => {
-          dispatch(setTutorField("language", v));
-        }}
-      />
-    </div>
+    <SelectVoice
+      value={store.Tutor.language}
+      setVoice={(v) => {
+        dispatch(setTutorField("language", v));
+      }}
+    />
   );
 };
 

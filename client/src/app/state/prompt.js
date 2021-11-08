@@ -31,7 +31,6 @@ export function setPromptField(key, val) {
 }
 
 export function translateText(text, language) {
-  console.log("looking for language", language);
   return (dispatch, getState) => {
     var voices = getState().Settings.voices;
     console.log("language is ", language);
@@ -40,7 +39,6 @@ export function translateText(text, language) {
         "/api/translate",
         { text: text, language: voices[language]["lang"] },
         (data) => {
-          console.log(data);
           dispatch(setPromptField("prompt_translation", data["translation"]));
         },
         (err) => {
@@ -66,7 +64,6 @@ export function setPrompt() {
   return async (dispatch, getState) => {
     const wl = getState()["Settings"]["vocabulary"];
     const mode = getState()["Settings"]["mode"];
-    console.log("mode is", mode);
 
     let targetWord = "";
 
@@ -90,7 +87,6 @@ export function setPrompt() {
       default:
         targetWord = "Invalid setting!!!";
     }
-
     dispatch(setPromptField("prompt", targetWord));
     dispatch(translateText(targetWord, getState().Tutor.language));
   };

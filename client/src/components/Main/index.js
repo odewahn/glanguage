@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button, Fab, Stack } from "@mui/material";
-import HearingIcon from "@mui/icons-material/Hearing";
+import { Grid, Button, Fab, Stack } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import ReplayIcon from "@mui/icons-material/Replay";
 
 import Layout from "../Layout";
 
@@ -19,48 +22,83 @@ const Main = () => {
   const store = useSelector((state) => state);
 
   useEffect(() => {
-    console.log("!!!!!translation changed!!!!");
-    console.log("Translation is", store.Prompt.prompt_translation);
     dispatch(sayPrompt());
   }, [store.Prompt.prompt_translation]);
 
   return (
-    <Layout title="Pratice">
-      <hr />
-
-      <Button
-        onClick={() => {
-          sayIt(
-            store.Prompt.prompt_translation,
-            store.Tutor.language,
-            store.Tutor.rate
-          );
-        }}
-      >
-        Repeat
-      </Button>
-
-      <Button
-        onClick={() => {
-          sayIt(store.Prompt.prompt_translation, store.Tutor.language, 0);
-        }}
-      >
-        Repeat slowly
-      </Button>
-      <hr />
-
-      <Stack direction="row" spacing={2}>
-        <Fab
-          onClick={() => {
-            dispatch(setPrompt());
-          }}
+    <Layout title="Practice">
+      <div style={{ marginTop: "45px" }} />
+      <Grid container spacing={2}>
+        <Grid
+          item
+          xs={2}
+          sx={{ border: 1, background: "darkgrey", textAlign: "center" }}
         >
-          <HearingIcon />
-        </Fab>
-        <Dictaphone />
-      </Stack>
+          <h1>Q</h1>
+        </Grid>
 
-      <h2>{store.Student.response}</h2>
+        <Grid item xs={10} sx={{ border: 1 }}>
+          {store.Settings.practice_type == "speaking"
+            ? store.Prompt.prompt
+            : store.Prompt.prompt_translation}
+        </Grid>
+
+        <Grid
+          item
+          xs={2}
+          sx={{ border: 1, background: "darkgrey", textAlign: "center" }}
+        >
+          <h1>A</h1>
+        </Grid>
+        <Grid item xs={10} sx={{ border: 1, backdropFilter: "blur(6px)" }}>
+          {store.Settings.practice_type == "speaking"
+            ? store.Prompt.prompt_translation
+            : store.Prompt.prompt}
+        </Grid>
+
+        <Grid
+          item
+          xs={2}
+          sx={{ border: 1, background: "darkgrey", textAlign: "center" }}
+        >
+          <h1>R</h1>
+        </Grid>
+
+        <Grid item xs={10} sx={{ border: 1 }}>
+          {store.Student.response_in_progress}
+        </Grid>
+
+        <Grid item xs={12}>
+          <Stack direction="row" spacing={2}>
+            <Fab
+              onClick={() => {
+                dispatch(setPrompt());
+              }}
+            >
+              <PlayArrowIcon />
+            </Fab>
+            <Fab
+              onClick={() => {
+                sayIt(
+                  store.Prompt.prompt_translation,
+                  store.Tutor.language,
+                  store.Tutor.rate
+                );
+              }}
+            >
+              <ReplayIcon />
+            </Fab>
+            <Fab
+              onClick={() => {
+                sayIt(store.Prompt.prompt_translation, store.Tutor.language, 0);
+              }}
+            >
+              <SlowMotionVideoIcon />
+            </Fab>
+            <Dictaphone />
+          </Stack>
+        </Grid>
+      </Grid>
     </Layout>
   );
 };

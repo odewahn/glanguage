@@ -1,14 +1,3 @@
-body {
-  background-color: lightgray;
-  margin: 0;
-  padding: 0;
-}
-
-.Root {
-  margin: 20px;
-  width: 100%;
-}
-
 .LanguageBounds {
   margin-left: 3px;
   margin-bottom: 1rem;

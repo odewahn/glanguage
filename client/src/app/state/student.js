@@ -8,6 +8,7 @@ const DEFAULT_LANGUAGE = "en-US";
 export const INITIAL_STATE = {
   language: 0,
   response: "",
+  response_in_progress: "",
 };
 
 /*********************************************************************

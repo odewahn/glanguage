@@ -1,38 +1,48 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { Button, Slider, Stack, Box } from "@mui/material";
+import { Grid, Button } from "@mui/material";
+
+import { useHistory } from "react-router-dom";
 
 import Layout from "../Layout";
 
 import SelectVocabularyMode from "../SelectVocabularyMode";
 import SelectLanguages from "../SelectLanguages";
 import SelectPracticeMode from "../SelectPracticeMode";
+import { setPrompt, setPromptField } from "../../app/state/prompt";
 
-import { setTutorField } from "../../app/state/tutor";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 
 const Main = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const store = useSelector((state) => state);
   return (
     <Layout title="Settings">
-      <Box style={{ width: "200px", margin: "10px" }}>
-        <Stack direction="row" spacing={2}>
-          Slow
-          <Slider
-            value={store.Tutor.rate}
-            mim={0}
-            max={100}
-            onChange={(e, v) => {
-              dispatch(setTutorField("rate", v));
+      <Grid container spacing={2}>
+        <Grid item xs={3}>
+          <SelectPracticeMode />
+        </Grid>
+        <Grid item xs={6}>
+          <SelectLanguages />
+        </Grid>
+        <Grid item xs={3}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              dispatch(setPromptField("prompt", ""));
+              dispatch(setPrompt());
+              history.push("/");
+              console.log("click!");
             }}
-          />
-          Fast
-        </Stack>
-      </Box>
+          >
+            <ConnectWithoutContactIcon />
+            Practice
+          </Button>
+        </Grid>
+      </Grid>
+      <hr />
 
-      <SelectLanguages />
-      <SelectPracticeMode />
       <SelectVocabularyMode />
     </Layout>
   );
