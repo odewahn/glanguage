@@ -10,6 +10,8 @@ import Layout from "../Layout";
 import SelectVocabularyMode from "../SelectVocabularyMode";
 import SelectLanguages from "../SelectLanguages";
 import SelectPracticeMode from "../SelectPracticeMode";
+import SelectTutor from "../SelectTutor";
+
 import { setPrompt, setPromptField } from "../../app/state/prompt";
 
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
@@ -41,7 +43,8 @@ const Main = () => {
         </Grid>
       </Grid>
       <hr />
-
+      <SelectTutor />
+      <nr />
       <SelectVocabularyMode />
     </Layout>
   );

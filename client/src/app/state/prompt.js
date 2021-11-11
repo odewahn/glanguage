@@ -32,8 +32,10 @@ export function setPromptField(key, val) {
 
 export function translateText(text, language) {
   return (dispatch, getState) => {
-    var voices = getState().Settings.voices;
-    console.log("language is ", language);
+    //var voices = getState().Settings.voices;
+    //console.log("language is ", language);
+    var voices = window.speechSynthesis.getVoices();
+    console.log(voices);
     dispatch(
       fetchFromAPI(
         "/api/translate",

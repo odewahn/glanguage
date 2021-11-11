@@ -93,6 +93,7 @@ export function remapVoices() {
     var countryName = countryList[countryCode];
 
     var newLang = {
+      country_code: countryCode,
       speaker_voice: speaker.name + " (" + countryName + ")",
       original_idx: idx,
     };
