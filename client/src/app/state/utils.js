@@ -94,7 +94,13 @@ export function remapVoices() {
 
     var newLang = {
       country_code: countryCode,
-      speaker_voice: speaker.name + " (" + countryName + ")",
+      speaker_voice:
+        speaker.name +
+        " (" +
+        languageName +
+        " speaker from " +
+        countryName +
+        ")",
       original_idx: idx,
     };
 
@@ -104,6 +110,7 @@ export function remapVoices() {
       remap[languageCode] = {
         language_name: languageName,
         speakers: [newLang],
+        language_code: speaker.lang,
       };
     }
   });

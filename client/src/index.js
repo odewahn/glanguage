@@ -14,20 +14,20 @@ import Main from "./components/Main";
 import Settings from "./components/Settings";
 
 import { fetchVocabulary, setSettingsField } from "./app/state/settings";
-import { setTutorDefaultLanguage } from "./app/state/tutor";
+import { setTutorDefaultLanguage, setTutorField } from "./app/state/tutor";
 import { setStudentDefaultLanguage } from "./app/state/student";
+
+import { remapVoices } from "./app/state/utils";
 
 // Create the store with middleware for thunks and react dev tools
 // See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers
 
-/*
 const composedEnhancer = compose(
   applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
-*/
 
-const composedEnhancer = compose(applyMiddleware(thunk));
+//const composedEnhancer = compose(applyMiddleware(thunk));
 
 const store = createStore(rootReducer, undefined, composedEnhancer);
 
@@ -39,12 +39,12 @@ const speech = window.speechSynthesis;
 
 if (speech.onvoiceschanged !== undefined) {
   speech.onvoiceschanged = () => {
-    console.log("getting the middleware");
+    console.log("getting the voices middleware!!");
     const voices = speech.getVoices();
     console.log(voices);
     store.dispatch(setTutorDefaultLanguage()); // Load the tutor's default language
     store.dispatch(setStudentDefaultLanguage()); // Load the students's default language
-    store.dispatch(setSettingsField("voices", voices)); // Load the available voices
+    store.dispatch(setTutorField("voices", remapVoices(voices))); // Load the available voices
   };
 }
 

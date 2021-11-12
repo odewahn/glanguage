@@ -1,34 +1,37 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
-import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import { FormControl, Select } from "@mui/material";
 
 import { remapVoices } from "../../app/state/utils";
 
-const Main = (props) => {
-  const dispatch = useDispatch();
-  const store = useSelector((state) => state);
+import "./index.css";
 
-  let labelId = "label" + Math.random();
+const Main = (props) => {
   var voices = window.speechSynthesis.getVoices();
 
   const voicesMap = remapVoices(voices);
-
-  const [languageCode, setLanguageCode] = useState("");
-
-  //const handleLanguageChange = (e) => {};
+  const languageCodes = Object.keys(voicesMap).sort();
 
   return (
     <div className="LanguageBounds">
       <FormControl className="Language">
-        <InputLabel id={labelId}>Language</InputLabel>
         <Select
-          labelId={labelId}
-          value={languageCode}
-          onChange={(e) => setLanguageCode(e.target.value)}
+          native
+          value={props.value}
+          onChange={(e) =>
+            props.setVoice(e.target.value, voices[e.target.value].lang)
+          }
         >
-          {voicesMap.map((v, idx) => {
-            return <MenuItem value={v}>voicesMap[v]</MenuItem>;
+          {languageCodes.map((v) => {
+            return (
+              <optgroup label={voicesMap[v].language_name}>
+                {voicesMap[v].speakers.map((s) => {
+                  return (
+                    <option value={s.original_idx}>{s.speaker_voice}</option>
+                  );
+                })}
+              </optgroup>
+            );
           })}
         </Select>
       </FormControl>

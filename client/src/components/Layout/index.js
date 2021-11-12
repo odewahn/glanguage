@@ -1,40 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./index.css";
 
 import {
-  Link,
-  Box,
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
   ThemeProvider,
   createMuiTheme,
 } from "@mui/material";
 
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import SettingsIcon from "@mui/icons-material/Settings";
-import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+
+import { remapVoices } from "../../app/state/utils";
+import { setTutorField } from "../../app/state/tutor";
 
 const Main = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  //const store = useSelector((state) => state);
 
-  /*
-  const theme = createMuiTheme({
-    typography: {
-      fontFamily: ["Montserrat", "sans-serif"].join(","),
-    },
-  });
-
-        <RecordVoiceOverIcon
-                onClick={() => {
-                  history.push("/");
-                }}
-              />
-              
-*/
+  useEffect(() => {
+    const voices = window.speechSynthesis.getVoices();
+    console.log("Loaded", voices.length, "from the window.speechSynthesis");
+    dispatch(setTutorField("voices", remapVoices(voices))); // Load the available voices
+  }, []);
 
   const theme = createMuiTheme({
     components: {

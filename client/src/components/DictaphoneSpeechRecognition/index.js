@@ -6,7 +6,6 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 
 import { Fab } from "@mui/material";
-import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import MicIcon from "@mui/icons-material/Mic";
 
 import { setStudentField } from "../../app/state/student";
@@ -16,7 +15,6 @@ import "./index.css";
 const Dictaphone = () => {
   const {
     listening,
-    resetTranscript,
     browserSupportsSpeechRecognition,
     transcript,
     finalTranscript,
@@ -46,17 +44,19 @@ const Dictaphone = () => {
       ) : (
         <Fab
           onClick={() => {
-            var expected_language = store.Tutor.language;
-            console.log("Student language is", store.Student.language);
+            const expected_voice =
+              store.Settings.practice_type == "listening"
+                ? "en-US"
+                : store.Tutor.language_code;
 
-            if (store.Settings.practice_type == "listening") {
-              expected_language = store.Student.language;
-            }
-
-            console.log(expected_language);
-            const voice = store.Settings.voices[expected_language].lang;
+            console.log(
+              "Mode is",
+              store.Settings.practice_type,
+              "so I expect to hear",
+              expected_voice
+            );
             SpeechRecognition.startListening({
-              language: voice,
+              language: expected_voice,
             });
           }}
         >

@@ -9,6 +9,7 @@ const DEFAULT_LANGUAGE = "fr-FR";
 
 export const INITIAL_STATE = {
   language: 0,
+  language_code: "",
   rate: 100,
 };
 

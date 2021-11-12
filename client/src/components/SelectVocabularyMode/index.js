@@ -17,7 +17,7 @@ const Main = () => {
 
   return (
     <div>
-      <h3>Vocabulary to practice</h3>
+      <h3>What do you want to practice?</h3>
       <FormControl component="fieldset">
         <RadioGroup
           name="mode"

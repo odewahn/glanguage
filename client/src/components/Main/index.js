@@ -17,8 +17,6 @@ import Dictaphone from "../DictaphoneSpeechRecognition";
 
 import "./index.css";
 
-import { remapVoices } from "../../app/state/utils";
-
 const Main = () => {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
@@ -102,13 +100,6 @@ const Main = () => {
           </Stack>
         </Grid>
       </Grid>
-      <Button
-        onClick={() => {
-          console.log(remapVoices(store.Settings.voices));
-        }}
-      >
-        New Lang Selector data structure
-      </Button>
     </Layout>
   );
 };
