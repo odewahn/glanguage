@@ -15,18 +15,38 @@ import { useDispatch, useSelector } from "react-redux";
 
 import SettingsIcon from "@mui/icons-material/Settings";
 
-import { remapVoices } from "../../app/state/utils";
-import { setTutorField } from "../../app/state/tutor";
+import {
+  remapVoices,
+  setTutorField,
+  findVoiceByLanguage,
+} from "../../app/state/tutor";
+import { setStudentField } from "../../app/state/student";
 
 const Main = (props) => {
+  const store = useSelector((state) => state);
   const history = useHistory();
   const dispatch = useDispatch();
-  //const store = useSelector((state) => state);
 
   useEffect(() => {
     const voices = window.speechSynthesis.getVoices();
     console.log("Loaded", voices.length, "from the window.speechSynthesis");
-    dispatch(setTutorField("voices", remapVoices(voices))); // Load the available voices
+    const [remap, voices_lookup] = remapVoices(voices);
+    console.log(remap, voices_lookup);
+    dispatch(setTutorField("voices", remap)); // Load the available voices
+    dispatch(setTutorField("voices_lookup", voices_lookup)); // Load the available voices
+    if (store.Tutor.voice_idx == -1) {
+      dispatch(
+        setTutorField("voice_idx", findVoiceByLanguage("French", voices_lookup))
+      );
+    }
+    if (store.Student.voice_idx == -1) {
+      dispatch(
+        setStudentField(
+          "voice_idx",
+          findVoiceByLanguage("English", voices_lookup)
+        )
+      );
+    }
   }, []);
 
   const theme = createMuiTheme({

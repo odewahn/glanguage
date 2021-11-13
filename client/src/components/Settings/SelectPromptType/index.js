@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import { setSettingsField } from "../../app/state/settings";
+import { setSettingsField } from "../../../app/state/settings";
 
 const Main = () => {
   const dispatch = useDispatch();

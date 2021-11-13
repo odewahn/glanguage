@@ -8,7 +8,7 @@ import SpeechRecognition, {
 import { Fab } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 
-import { setStudentField } from "../../app/state/student";
+import { setStudentField } from "../../../app/state/student";
 
 import "./index.css";
 

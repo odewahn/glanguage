@@ -7,15 +7,13 @@ import { useHistory } from "react-router-dom";
 
 import Layout from "../Layout";
 
-import SelectVocabularyMode from "../SelectVocabularyMode";
-import SelectPracticeMode from "../SelectPracticeMode";
-import SelectTutor from "../SelectTutor";
+import SelectVocabularyMode from "./SelectPromptType";
+import SelectPracticeMode from "./SelectPracticeMode";
+import SelectTutor from "./SelectTutor";
 
-import { setTutorField, setTutorDefaultLanguage } from "../../app/state/tutor";
+import { setTutorField } from "../../app/state/tutor";
 
 import { setPrompt, setPromptField } from "../../app/state/prompt";
-
-import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 
 const Main = () => {
   const history = useHistory();
@@ -29,13 +27,7 @@ const Main = () => {
           <SelectPracticeMode />
         </Grid>
         <Grid item xs={8}>
-          <SelectTutor
-            value={store.Tutor.language}
-            setVoice={(voice_index, voice_code) => {
-              dispatch(setTutorField("language", voice_index));
-              dispatch(setTutorField("language_code", voice_code));
-            }}
-          />
+          <SelectTutor />
         </Grid>
         <Grid item xs={1}>
           <Button

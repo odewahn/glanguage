@@ -13,7 +13,6 @@ export const INITIAL_STATE = {
   mode: "dates",
   numbers_lower_bound: 0,
   numbers_upper_bound: 100,
-  voices: [],
 };
 
 /*********************************************************************

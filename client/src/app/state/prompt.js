@@ -1,6 +1,6 @@
 import "whatwg-fetch";
 import { fetchFromAPI } from "./utils";
-import { sayIt } from "./utils";
+import { sayIt } from "./tutor";
 
 /*********************************************************************
 ||  Define the initial reducer state
@@ -32,14 +32,10 @@ export function setPromptField(key, val) {
 
 export function translateText(text, language) {
   return (dispatch, getState) => {
-    //var voices = getState().Settings.voices;
-    //console.log("language is ", language);
-    var voices = window.speechSynthesis.getVoices();
-    console.log(voices);
     dispatch(
       fetchFromAPI(
         "/api/translate",
-        { text: text, language: voices[language]["lang"] },
+        { text: text, language: language },
         (data) => {
           dispatch(setPromptField("prompt_translation", data["translation"]));
         },
@@ -90,13 +86,17 @@ export function setPrompt() {
         targetWord = "Invalid setting!!!";
     }
     dispatch(setPromptField("prompt", targetWord));
-    dispatch(translateText(targetWord, getState().Tutor.language));
+    const targetLanguage =
+      getState().Tutor.voices_lookup[getState().Tutor.voice_idx].language;
+    console.log("Target language to translate is", targetLanguage);
+    dispatch(translateText(targetWord, targetLanguage));
   };
 }
 
 // Says the prompt based on the users lerning mode
 // If the mode is speaking, then the student listents in their language and responds in the tutor (i.e., en->fr)
 // If the mode is listening, the student listens in their tutors language and responds in the own (i.e., fr->en)
+/*
 export function sayPrompt() {
   return (dispatch, getState) => {
     var targetWord = getState().Prompt.prompt_translation;
@@ -111,5 +111,6 @@ export function sayPrompt() {
     sayIt(targetWord, targetLanguage, targetRate);
   };
 }
+*/
 
 export default Main;

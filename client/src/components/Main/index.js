@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Grid, Button, Fab, Stack } from "@mui/material";
+import { Grid, Fab, Stack } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import ReplayIcon from "@mui/icons-material/Replay";
 
 import Layout from "../Layout";
 
-import { setPrompt, sayPrompt } from "../../app/state/prompt";
+import { setPrompt } from "../../app/state/prompt";
 
-import { sayIt } from "../../app/state/utils";
+import { sayIt } from "../../app/state/tutor";
 
-import Dictaphone from "../DictaphoneSpeechRecognition";
+import Dictaphone from "./DictaphoneSpeechRecognition";
 
 import "./index.css";
 
@@ -22,7 +21,16 @@ const Main = () => {
   const store = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(sayPrompt());
+    console.log("Practice type is", store.Settings.practice_type);
+
+    var text = store.Prompt.prompt;
+    var language = store.Student.voice_idx;
+    if (store.Settings.practice_type == "listening") {
+      text = store.Prompt.prompt_translation;
+      language = store.Tutor.voice_idx;
+    }
+    console.log("I'm saying", text, "using language", language);
+    sayIt(text, language, 100);
   }, [store.Prompt.prompt_translation]);
 
   return (
@@ -82,7 +90,7 @@ const Main = () => {
               onClick={() => {
                 sayIt(
                   store.Prompt.prompt_translation,
-                  store.Tutor.language,
+                  store.Tutor.voice_idx,
                   store.Tutor.rate
                 );
               }}
@@ -91,7 +99,11 @@ const Main = () => {
             </Fab>
             <Fab
               onClick={() => {
-                sayIt(store.Prompt.prompt_translation, store.Tutor.language, 0);
+                sayIt(
+                  store.Prompt.prompt_translation,
+                  store.Tutor.voice_idx,
+                  0
+                );
               }}
             >
               <SlowMotionVideoIcon />
