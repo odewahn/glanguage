@@ -46,8 +46,8 @@ const Dictaphone = () => {
           onClick={() => {
             const expected_voice =
               store.Settings.practice_type == "listening"
-                ? "en-US"
-                : store.Tutor.language_code;
+                ? store.Tutor.voices_lookup[store.Student.voice_idx].language
+                : store.Tutor.voices_lookup[store.Tutor.voice_idx].language;
 
             console.log(
               "Mode is",

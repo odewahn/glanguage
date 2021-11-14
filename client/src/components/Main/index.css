@@ -12,3 +12,10 @@
   width: 8rem;
   margin: 12px;
 }
+
+.Progress {
+  width: 95%;
+  height: 12px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}

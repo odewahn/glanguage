@@ -1,6 +1,7 @@
 import "whatwg-fetch";
 import { fetchFromAPI } from "./utils";
-import { sayIt } from "./tutor";
+import { setStudentField } from "./student";
+import { setTutorField } from "./tutor";
 
 /*********************************************************************
 ||  Define the initial reducer state
@@ -76,7 +77,7 @@ export function setPrompt() {
         const weekday = randomElement(wl["days"]);
         const month = randomElement(wl["months"]);
         const day = randomNumber(1, 31);
-        const dt = `${weekday}, ${month} ${day}`;
+        const dt = `${weekday} ${month} ${day}`;
         targetWord = dt;
         break;
       case "prepositions":
@@ -90,27 +91,8 @@ export function setPrompt() {
       getState().Tutor.voices_lookup[getState().Tutor.voice_idx].language;
     console.log("Target language to translate is", targetLanguage);
     dispatch(translateText(targetWord, targetLanguage));
+    dispatch(setStudentField("response_in_progress", ""));
   };
 }
-
-// Says the prompt based on the users lerning mode
-// If the mode is speaking, then the student listents in their language and responds in the tutor (i.e., en->fr)
-// If the mode is listening, the student listens in their tutors language and responds in the own (i.e., fr->en)
-/*
-export function sayPrompt() {
-  return (dispatch, getState) => {
-    var targetWord = getState().Prompt.prompt_translation;
-    var targetLanguage = getState().Tutor.language;
-    var targetRate = getState().Tutor.rate;
-    if (getState().Settings.practice_type === "speaking") {
-      targetWord = getState().Prompt.prompt;
-      targetLanguage = getState().Student.language;
-      targetRate = 100;
-    }
-    console.log("saying something???", targetWord, targetLanguage);
-    sayIt(targetWord, targetLanguage, targetRate);
-  };
-}
-*/
 
 export default Main;
