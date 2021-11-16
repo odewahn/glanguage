@@ -26,12 +26,12 @@ const Main = () => {
         <FormControlLabel
           value="listening"
           control={<Radio />}
-          label="Listening to"
+          label="Understanding"
         />
         <FormControlLabel
           value="speaking"
           control={<Radio />}
-          label="Speaking to"
+          label="Speaking"
         />
       </RadioGroup>
     </FormControl>

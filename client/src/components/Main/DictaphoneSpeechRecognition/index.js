@@ -5,7 +5,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-import { Fab } from "@mui/material";
+import { Fab, Button } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 
 import { setStudentField } from "../../../app/state/student";
@@ -38,11 +38,16 @@ const Dictaphone = () => {
   return (
     <div>
       {listening ? (
-        <Fab className="MicOn" onClick={SpeechRecognition.stopListening}>
-          <MicIcon className="HotMicIcon" />
-        </Fab>
+        <Button
+          className="MicOn"
+          variant="outlined"
+          onClick={SpeechRecognition.stopListening}
+        >
+          Answer
+        </Button>
       ) : (
-        <Fab
+        <Button
+          variant="outlined"
           onClick={() => {
             const expected_voice =
               store.Settings.practice_type == "listening"
@@ -60,8 +65,8 @@ const Dictaphone = () => {
             });
           }}
         >
-          <MicIcon />
-        </Fab>
+          Answer
+        </Button>
       )}
     </div>
   );

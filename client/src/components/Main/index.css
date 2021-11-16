@@ -19,3 +19,9 @@
   border-radius: 6px;
   margin-bottom: 1rem;
 }
+
+.Blurred {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  font-weight: bold;
+}

@@ -64,9 +64,6 @@ const Main = (props) => {
     },
     palette: {
       type: "light",
-      primary: {
-        main: "#333333",
-      },
     },
     typography: {
       fontFamily: "Montserrat",

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Grid, Fab, Stack, LinearProgress } from "@mui/material";
+import { Grid, Fab, Button, Stack, LinearProgress } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import ReplayIcon from "@mui/icons-material/Replay";
@@ -15,6 +15,7 @@ import { sayIt } from "../../app/state/tutor";
 import Dictaphone from "./DictaphoneSpeechRecognition";
 
 import "./index.css";
+import { red } from "@mui/material/colors";
 
 var levenshtein = require("fast-levenshtein");
 
@@ -22,6 +23,10 @@ const Main = () => {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
   const [pctCorrect, setPctCorrect] = useState(0);
+
+  const [questionText, setQuestionText] = useState("");
+  const [answerText, setAnwserText] = useState("");
+  const [blurred, setBlurred] = useState(true);
 
   useEffect(() => {
     console.log("Practice type is", store.Settings.practice_type);
@@ -67,12 +72,24 @@ const Main = () => {
         <Grid
           item
           xs={2}
-          sx={{ border: 1, background: "darkgrey", textAlign: "center" }}
+          sx={{
+            borderTop: 1,
+            borderLeft: 1,
+            textAlign: "center",
+          }}
         >
-          <h1>Q</h1>
+          <h2>Q</h2>
         </Grid>
 
-        <Grid item xs={10} sx={{ border: 1 }}>
+        <Grid
+          item
+          xs={10}
+          sx={{
+            borderTop: 1,
+            borderLeft: 1,
+            borderRight: 1,
+          }}
+        >
           {store.Settings.practice_type == "speaking"
             ? store.Prompt.prompt
             : store.Prompt.prompt_translation}
@@ -81,23 +98,46 @@ const Main = () => {
         <Grid
           item
           xs={2}
-          sx={{ border: 1, background: "darkgrey", textAlign: "center" }}
+          sx={{
+            borderTop: 1,
+            borderLeft: 1,
+
+            textAlign: "center",
+          }}
         >
-          <h1>A</h1>
+          <h2>A</h2>
         </Grid>
 
-        <Grid item xs={10} sx={{ border: 1 }}>
-          {store.Settings.practice_type == "speaking"
-            ? store.Prompt.prompt_translation
-            : store.Prompt.prompt}
+        <Grid
+          item
+          xs={10}
+          sx={{
+            borderRight: 1,
+            borderLeft: 1,
+            borderTop: 1,
+          }}
+          onClick={() => {
+            setBlurred(!blurred);
+          }}
+        >
+          <div className={blurred ? "Blurred" : ""}>
+            {store.Settings.practice_type == "speaking"
+              ? store.Prompt.prompt_translation
+              : store.Prompt.prompt}
+          </div>
         </Grid>
 
         <Grid
           item
           xs={2}
-          sx={{ border: 1, background: "darkgrey", textAlign: "center" }}
+          sx={{
+            borderLeft: 1,
+            borderBottom: 1,
+            borderTop: 1,
+            textAlign: "center",
+          }}
         >
-          <h1>R</h1>
+          <h2>R</h2>
         </Grid>
 
         <Grid item xs={10} sx={{ border: 1 }}>
@@ -117,15 +157,17 @@ const Main = () => {
 
         <Grid item xs={12}>
           <Stack direction="row" spacing={2}>
-            <Fab
+            <Button
+              variant="outlined"
               onClick={() => {
                 dispatch(setPrompt());
               }}
             >
-              <PlayArrowIcon />
-            </Fab>
+              Next
+            </Button>
             <Dictaphone />
-            <Fab
+            <Button
+              variant="outlined"
               onClick={() => {
                 sayIt(
                   store.Prompt.prompt_translation,
@@ -134,9 +176,10 @@ const Main = () => {
                 );
               }}
             >
-              <ReplayIcon />
-            </Fab>
-            <Fab
+              Repeat
+            </Button>
+            <Button
+              variant="outlined"
               onClick={() => {
                 sayIt(
                   store.Prompt.prompt_translation,
@@ -145,8 +188,8 @@ const Main = () => {
                 );
               }}
             >
-              <SlowMotionVideoIcon />
-            </Fab>
+              Repeat (slower)
+            </Button>
           </Stack>
         </Grid>
       </Grid>

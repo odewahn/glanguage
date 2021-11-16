@@ -1,8 +1,11 @@
 html,
 body {
   font-family: "Montserrat", sans-serif;
-  background-color: lightgray;
-  color: white;
+  /*
+  background-color: grey;
+  color: whitesmoke;
+  */
+  font-size: 1.05rem;
   margin: 0;
   padding: 0;
 }

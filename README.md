@@ -139,3 +139,23 @@ const translate = new Translate({
    },
 });
 ```
+
+# Lessons
+
+Goal: Get to the prefociency of an 8-year old.
+
+As I've gotten through the basic mechanics and have tried to actually _learn_ a lanuage with this, I've realized I need a more structured approach. Hence, lessons.
+
+The idea of a lesson is simple: you have a set of words (say 20) that you work with sequentially. There would be three (four?) phases:
+
+- For each word in the list, the tutor says it in your language, and then theirs. You just repeat what they say a few times until you get it right. (i.e., "Two. Deux." and then you say "Deux"). When you're ready, you move on to the next word _in order_. The answer you're suposed to say is always visible.
+- Once you get through all the words, the tutor prompts you in her language and you respond in yours until you get it right (i.e., you're practicing listening). What you're supposed to say is blurred out so you can't see the answer, but you could unhide it at any point.
+- Same as last step, but this time she says it in yours and you respond in hers (i.e., practice speaking)
+- Randomly mixed set of listening and speaking.
+
+Additional notes:
+
+- For efficiency and cost savings, the words in the lesson are all translated _in advance_, so pretty much everything is happeneing on the browser
+- For the reinforced/time-based learning (Andy Matushak stuff), it would mix in words from lessons you'd completed previously to help you remember.
+  - https://www.gwern.net/Spaced-repetition
+- Each lesson would have a description the tutor would say at the beginning. You could also add language-specfic notes that it might also say, depending on the language. For example, for numbers in French, it might explain the counting system (how it uses groups of twenty for bigger numbers)
