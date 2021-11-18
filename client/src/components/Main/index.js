@@ -69,6 +69,8 @@ const Main = () => {
       <div style={{ marginTop: "45px" }} />
 
       <Grid container spacing={2}>
+        {/* *************** Question Section ************************** */}
+
         <Grid
           item
           xs={2}
@@ -95,52 +97,21 @@ const Main = () => {
             : store.Prompt.prompt_translation}
         </Grid>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            borderTop: 1,
-            borderLeft: 1,
-
-            textAlign: "center",
-          }}
-        >
-          <h2>A</h2>
-        </Grid>
-
-        <Grid
-          item
-          xs={10}
-          sx={{
-            borderRight: 1,
-            borderLeft: 1,
-            borderTop: 1,
-          }}
-          onClick={() => {
-            setBlurred(!blurred);
-          }}
-        >
-          <div className={blurred ? "Blurred" : ""}>
-            {store.Settings.practice_type == "speaking"
-              ? store.Prompt.prompt_translation
-              : store.Prompt.prompt}
-          </div>
-        </Grid>
+        {/* *************** Response  ************************** */}
 
         <Grid
           item
           xs={2}
           sx={{
-            borderLeft: 1,
-            borderBottom: 1,
             borderTop: 1,
+            borderLeft: 1,
             textAlign: "center",
           }}
         >
           <h2>R</h2>
         </Grid>
 
-        <Grid item xs={10} sx={{ border: 1 }}>
+        <Grid item xs={10} sx={{ borderRight: 1, borderLeft: 1, borderTop: 1 }}>
           <LinearProgress
             className="Progress"
             variant="determinate"
@@ -153,6 +124,39 @@ const Main = () => {
             }}
           />
           {store.Student.response_in_progress}
+        </Grid>
+
+        {/* *************** Answer  ************************** */}
+
+        <Grid
+          item
+          xs={2}
+          sx={{
+            borderLeft: 1,
+            borderBottom: 1,
+            borderTop: 1,
+
+            textAlign: "center",
+          }}
+        >
+          <h2>A</h2>
+        </Grid>
+
+        <Grid
+          item
+          xs={10}
+          sx={{
+            border: 1,
+          }}
+          onClick={() => {
+            setBlurred(!blurred);
+          }}
+        >
+          <div className={blurred ? "Blurred" : ""}>
+            {store.Settings.practice_type == "speaking"
+              ? store.Prompt.prompt_translation
+              : store.Prompt.prompt}
+          </div>
         </Grid>
 
         <Grid item xs={12}>

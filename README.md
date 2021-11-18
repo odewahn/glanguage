@@ -152,6 +152,7 @@ The idea of a lesson is simple: you have a set of words (say 20) that you work w
 - Once you get through all the words, the tutor prompts you in her language and you respond in yours until you get it right (i.e., you're practicing listening). What you're supposed to say is blurred out so you can't see the answer, but you could unhide it at any point.
 - Same as last step, but this time she says it in yours and you respond in hers (i.e., practice speaking)
 - Randomly mixed set of listening and speaking.
+- Have a sentence with the word mixed in, and you have to pick it out and say it (practice listening for specific words)
 
 Additional notes:
 

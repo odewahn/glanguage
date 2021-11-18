@@ -56,7 +56,7 @@ export function remapVoices() {
     var countryName = countryList[countryCode];
 
     const speaker_voice =
-      speaker.name + " (" + languageName + " speaker from " + countryName + ")";
+      languageName + " (" + speaker.name + " from " + countryName + ")";
 
     // This is the languaage as it will appear in a select list
     var newLang = {

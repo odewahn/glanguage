@@ -26,7 +26,7 @@ const Main = () => {
         <FormControlLabel
           value="listening"
           control={<Radio />}
-          label="Understanding"
+          label="Listening"
         />
         <FormControlLabel
           value="speaking"
