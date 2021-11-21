@@ -1,0 +1,29 @@
+name: Days and Dates
+description: In this lesson, you'll learn the days and months of the calendar.
+hints:
+  - the month of
+  - time
+prompts:
+  - Monday
+  - Tuesday
+  - Wednesday
+  - Thursday
+  - Friday
+  - Saturday
+  - Sunday
+  - January
+  - February
+  - March
+  - April
+  - the month of May
+  - June
+  - July
+  - August
+  - September
+  - October
+  - November
+  - December
+  - Summer
+  - Autumn
+  - Winter
+  - Spring time

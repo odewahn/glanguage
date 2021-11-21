@@ -1,10 +1,6 @@
 html,
 body {
   font-family: "Montserrat", sans-serif;
-  /*
-  background-color: grey;
-  color: whitesmoke;
-  */
   font-size: 1.05rem;
   margin: 0;
   padding: 0;
@@ -17,4 +13,9 @@ body {
 .Content {
   margin-right: 50px;
   margin-left: 50px;
+}
+
+.Flag {
+  margin-left: 20px;
+  margin-right: 20px;
 }

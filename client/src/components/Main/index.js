@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Grid, Fab, Button, Stack, LinearProgress } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
-import ReplayIcon from "@mui/icons-material/Replay";
+import { Grid, Button, Stack, LinearProgress } from "@mui/material";
 
 import Layout from "../Layout";
 
@@ -15,7 +12,6 @@ import { sayIt } from "../../app/state/tutor";
 import Dictaphone from "./DictaphoneSpeechRecognition";
 
 import "./index.css";
-import { red } from "@mui/material/colors";
 
 var levenshtein = require("fast-levenshtein");
 
@@ -24,9 +20,8 @@ const Main = () => {
   const store = useSelector((state) => state);
   const [pctCorrect, setPctCorrect] = useState(0);
 
-  const [questionText, setQuestionText] = useState("");
-  const [answerText, setAnwserText] = useState("");
-  const [blurred, setBlurred] = useState(true);
+  const [blurAnswer, setBlurAnswer] = useState(true);
+  const [blurQuestion, setBlurQuestion] = useState(true);
 
   useEffect(() => {
     console.log("Practice type is", store.Settings.practice_type);
@@ -91,10 +86,15 @@ const Main = () => {
             borderLeft: 1,
             borderRight: 1,
           }}
+          onClick={() => {
+            setBlurQuestion(!blurQuestion);
+          }}
         >
-          {store.Settings.practice_type == "speaking"
-            ? store.Prompt.prompt
-            : store.Prompt.prompt_translation}
+          <div className={blurQuestion ? "Blurred" : ""}>
+            {store.Settings.practice_type == "speaking"
+              ? store.Prompt.prompt
+              : store.Prompt.prompt_translation}
+          </div>
         </Grid>
 
         {/* *************** Response  ************************** */}
@@ -149,10 +149,10 @@ const Main = () => {
             border: 1,
           }}
           onClick={() => {
-            setBlurred(!blurred);
+            setBlurAnswer(!blurAnswer);
           }}
         >
-          <div className={blurred ? "Blurred" : ""}>
+          <div className={blurAnswer ? "Blurred" : ""}>
             {store.Settings.practice_type == "speaking"
               ? store.Prompt.prompt_translation
               : store.Prompt.prompt}

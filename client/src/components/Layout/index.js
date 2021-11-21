@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import SettingsIcon from "@mui/icons-material/Settings";
 
+import Flag from "react-world-flags";
+
 import {
   remapVoices,
   setTutorField,
@@ -70,6 +72,14 @@ const Main = (props) => {
     },
   });
 
+  var flagCode = "US";
+  var languageName = "English";
+  if (store.Tutor.voice_idx != -1) {
+    flagCode = store.Tutor.voices_lookup[store.Tutor.voice_idx]["country_code"];
+    languageName =
+      store.Tutor.voices_lookup[store.Tutor.voice_idx]["language_name"];
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div className="Root">
@@ -77,6 +87,10 @@ const Main = (props) => {
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {props.title}
+              <span className="Flag">
+                <Flag code={flagCode} height="16" />
+              </span>
+              {languageName}
             </Typography>
 
             <div>
