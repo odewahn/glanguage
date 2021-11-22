@@ -1,8 +1,6 @@
 name: Days and Dates
+slug: days-and-dates
 description: In this lesson, you'll learn the days and months of the calendar.
-hints:
-  - the month of
-  - time
 prompts:
   - Monday
   - Tuesday
@@ -15,7 +13,7 @@ prompts:
   - February
   - March
   - April
-  - the month of May
+  - May
   - June
   - July
   - August
@@ -26,4 +24,15 @@ prompts:
   - Summer
   - Autumn
   - Winter
-  - Spring time
+  - Spring
+overrides:
+  - May:
+      - fr: mai
+      - it: maggio
+      - es: mayo
+      - de: mai
+  - Spring:
+      - fr: printemps
+      - it: primaverile
+      - es: primavera
+      - de: frühling

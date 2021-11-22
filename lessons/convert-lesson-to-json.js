@@ -8,7 +8,7 @@ const { Translate } = require("@google-cloud/translate").v2;
 var ascii = new Buffer.from(process.env.CREDS64, "base64").toString("ascii");
 let creds = JSON.parse(ascii);
 
-// Create the client
+// Create the translation client
 const translate = new Translate({
   project_id: creds["project_id"],
   credentials: {
@@ -34,14 +34,6 @@ const fn = path.join(__dirname, args[0]);
 const dat = fs.readFileSync(fn, "utf8");
 const lessonData = YAML.parse(dat);
 
-// Remove the given substrings from a string
-function removeTargets(str, targets) {
-  targets.map((t) => {
-    str = str.replace(t, "");
-  });
-  return str.trim();
-}
-
 // Translate the text array and language target
 async function fetchTranslation(text, target) {
   const [out, hash] = await translate.translate(text, target);
@@ -49,37 +41,41 @@ async function fetchTranslation(text, target) {
   return retVal;
 }
 
-async function main(languageCode) {
-  var prompts = await fetchTranslation(lessonData.prompts, languageCode);
+async function main(languageCodes) {
+  // Get all the translations for the languages
+  var promptTranslations = {};
 
-  var hints = [];
-  if (lessonData.hasOwnProperty("hints")) {
-    hints = await fetchTranslation(lessonData.hints, languageCode);
+  for (var i = 0; i < languageCodes.length; i++) {
+    var translations = await fetchTranslation(
+      lessonData.prompts,
+      languageCodes[i]
+    );
+    promptTranslations[languageCodes[i]] = translations;
   }
 
-  // Remove any strings used for disambiguation
-  var cleaned = [];
-  prompts.map((p) => {
-    cleaned.push(removeTargets(p, hints));
-  });
-
-  // Now prepare the json output
-  var outputPrompts = [];
-  lessonData.prompts.map((p, idx) => {
-    outputPrompts.push({
-      prompt: removeTargets(p.toLowerCase(), lessonData.hints),
-      prompt_translation: cleaned[idx],
+  // Now loop through and replace any exceptions for the tranlations
+  if (lessonData.hasOwnProperty("overrides")) {
+    const cleanPrompts = lessonData.prompts.map((s) => s.toLowerCase());
+    lessonData.overrides.map((o) => {
+      Object.keys(o).map((word) => {
+        o[word].map((language) => {
+          Object.keys(language).map((l) => {
+            var word_idx = cleanPrompts.indexOf(word.toLowerCase());
+            if (word_idx > -1) {
+              promptTranslations[l][word_idx] = language[l];
+            }
+          });
+        });
+      });
     });
-  });
-  var final = Object.assign({}, { language: languageCode }, lessonData, {
-    prompts: outputPrompts,
-  });
-  delete final["hints"];
+  }
 
-  //out[targets[i]] = cleaned;
+  var final = Object.assign({}, lessonData, {
+    translations: promptTranslations,
+  });
+  delete final["overrides"];
 
   console.log(JSON.stringify(final, null, 2));
 }
 
-main("fr");
-//main("de");
+main(["fr", "de", "it", "es"]);
