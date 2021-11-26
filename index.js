@@ -12,15 +12,17 @@ let creds = JSON.parse(ascii);
 var users = require("./routes/users");
 var vocabulary = require("./routes/vocabulary");
 var translate = require("./routes/translate");
+var lesson = require("./routes/lesson");
 
 const app = express();
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.use("/api/users", users);
+//app.use("/api/users", users);
 app.use("/api/vocabulary", vocabulary);
 app.use("/api/translate", translate);
+app.use("/api/lessons", lesson);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

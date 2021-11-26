@@ -160,3 +160,17 @@ Additional notes:
 - For the reinforced/time-based learning (Andy Matushak stuff), it would mix in words from lessons you'd completed previously to help you remember.
   - https://www.gwern.net/Spaced-repetition
 - Each lesson would have a description the tutor would say at the beginning. You could also add language-specfic notes that it might also say, depending on the language. For example, for numbers in French, it might explain the counting system (how it uses groups of twenty for bigger numbers)
+
+## Vocabulary / lesson ideas and sources
+
+- https://preply.com/en/blog/most-common-french-words/
+
+# To Do / Notes
+
+- Break out current "main" page "Answer/Question/Response" grid and functionality (including dictaphones and buttons) into a separate component. As top level properties, pass in:
+- question
+- question_language
+- answer_language
+- A callback function to do something with the results
+
+Then handle all the complicated settings logic in the calling wrapper. This will also let me do better organize the code for things like adding lessons or having the GPT-3 conversation stuff, since I can make different top level components.

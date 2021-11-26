@@ -1,0 +1,25 @@
+name: Numbers from zero to twenty
+slug: numbers-zero-to-twenty
+description: The numbers from zero to twenty.
+prompts:
+  - zero
+  - one
+  - two
+  - three
+  - four
+  - five
+  - six
+  - seven
+  - eight
+  - nine
+  - ten
+  - eleven
+  - twelve
+  - thirteen
+  - fourteen
+  - fifteen
+  - sixteen
+  - seventeen
+  - eightteen
+  - nineteen
+  - twenty
