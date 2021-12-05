@@ -164,6 +164,8 @@ Additional notes:
 ## Vocabulary / lesson ideas and sources
 
 - https://preply.com/en/blog/most-common-french-words/
+- Research study on spaced repition: https://www.gwern.net/docs/www/scholar.sun.ac.za/9578b93726899111f4a3d03bffc7d36f0f02d14d.pdf
+- Researh on language learning courses -- https://www.wgtn.ac.nz/lals/resources/paul-nations-resources/paul-nations-publications/publications/documents/yamamoto-four-strands.pdf
 
 # To Do / Notes
 
@@ -174,3 +176,7 @@ Additional notes:
 - A callback function to do something with the results
 
 Then handle all the complicated settings logic in the calling wrapper. This will also let me do better organize the code for things like adding lessons or having the GPT-3 conversation stuff, since I can make different top level components.
+
+# Other services
+
+- https://listmonk.app/ -- mail list manager

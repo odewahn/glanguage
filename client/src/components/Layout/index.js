@@ -102,6 +102,7 @@ const Main = (props) => {
             </div>
           </Toolbar>
         </AppBar>
+        <div style={{ marginTop: "45px" }} />
         <div className="Content">{props.children}</div>
       </div>
     </ThemeProvider>

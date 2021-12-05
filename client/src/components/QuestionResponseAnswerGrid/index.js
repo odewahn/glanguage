@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { Grid, Button, Stack, LinearProgress } from "@mui/material";
-
-import Layout from "../Layout";
-
-import { setPrompt } from "../../app/state/prompt";
 
 import { sayIt } from "../../app/state/tutor";
 
@@ -15,54 +10,34 @@ import "./index.css";
 
 var levenshtein = require("fast-levenshtein");
 
-const Main = () => {
-  const dispatch = useDispatch();
-  const store = useSelector((state) => state);
+const Main = (props) => {
+  const [response, setResponse] = useState("");
   const [pctCorrect, setPctCorrect] = useState(0);
-
   const [blurAnswer, setBlurAnswer] = useState(true);
   const [blurQuestion, setBlurQuestion] = useState(true);
 
+  // TODO: Improve this a lot!
+  // Compute the "percent correct", which vagulely indicates how close
+  // what you said is to what was expected.  Right now it's just the
+  // levenstein distance, which is a poor indicator but has the
+  // bnefit of being easy to compute
   useEffect(() => {
-    console.log("Practice type is", store.Settings.practice_type);
-
-    var text = store.Prompt.prompt;
-    var language = store.Student.voice_idx;
-    if (store.Settings.practice_type == "listening") {
-      text = store.Prompt.prompt_translation;
-      language = store.Tutor.voice_idx;
-    }
-    console.log("I'm saying", text, "using language", language);
-    sayIt(text, language, 100);
-  }, [store.Prompt.prompt_translation]);
-
-  // Compute the "percent correct", which vagulely indicates how close what you said is to what
-  // was expected
-  useEffect(() => {
-    // find the expected response the student should be saying
-    const expectedResponse =
-      store.Settings.practice_type == "speaking"
-        ? store.Prompt.prompt_translation
-        : store.Prompt.prompt;
-
     // Find maximum possible string length
-    var maxLen = expectedResponse.length;
-    if (store.Student.response_in_progress.length > maxLen) {
-      maxLen = store.Student.response_in_progress.length;
+    var maxLen = props.answer.length;
+    if (response.length > maxLen) {
+      maxLen = response.length;
     }
 
     var distance = levenshtein.get(
-      (expectedResponse + "").toLowerCase(),
-      store.Student.response_in_progress.toLowerCase()
+      props.answer.toLowerCase(),
+      response.toLowerCase()
     );
 
     setPctCorrect(Math.trunc((1.0 - distance / maxLen) * 100));
-  }, [store.Student.response_in_progress]);
+  }, [response]);
 
   return (
-    <Layout title="Practice">
-      <div style={{ marginTop: "45px" }} />
-
+    <div>
       <Grid container spacing={2}>
         {/* *************** Question Section ************************** */}
 
@@ -90,11 +65,7 @@ const Main = () => {
             setBlurQuestion(!blurQuestion);
           }}
         >
-          <div className={blurQuestion ? "Blurred" : ""}>
-            {store.Settings.practice_type == "speaking"
-              ? store.Prompt.prompt
-              : store.Prompt.prompt_translation}
-          </div>
+          <div className={blurQuestion ? "Blurred" : ""}>{props.question}</div>
         </Grid>
 
         {/* *************** Response  ************************** */}
@@ -123,7 +94,7 @@ const Main = () => {
               marginBottom: "1rem",
             }}
           />
-          {store.Student.response_in_progress}
+          {response}
         </Grid>
 
         {/* *************** Answer  ************************** */}
@@ -135,7 +106,6 @@ const Main = () => {
             borderLeft: 1,
             borderBottom: 1,
             borderTop: 1,
-
             textAlign: "center",
           }}
         >
@@ -152,32 +122,37 @@ const Main = () => {
             setBlurAnswer(!blurAnswer);
           }}
         >
-          <div className={blurAnswer ? "Blurred" : ""}>
-            {store.Settings.practice_type == "speaking"
-              ? store.Prompt.prompt_translation
-              : store.Prompt.prompt}
-          </div>
+          <div className={blurAnswer ? "Blurred" : ""}>{props.answer}</div>
         </Grid>
+
+        {/* *************** Control Buttons  ************************** */}
 
         <Grid item xs={12}>
           <Stack direction="row" spacing={2}>
             <Button
               variant="outlined"
               onClick={() => {
-                dispatch(setPrompt());
+                props.onNext();
               }}
             >
-              Next
+              Begin/Next
             </Button>
-            <Dictaphone />
+
+            <Dictaphone
+              language={props.language}
+              onResponse={(response) => {
+                setResponse(response, pctCorrect);
+              }}
+              onResponseComplete={(response) => {
+                setResponse(response, pctCorrect);
+                console.log("They finished talking!!!");
+              }}
+            />
+
             <Button
               variant="outlined"
               onClick={() => {
-                sayIt(
-                  store.Prompt.prompt_translation,
-                  store.Tutor.voice_idx,
-                  store.Tutor.rate
-                );
+                sayIt(props.question, props.question_voice_idx, 100);
               }}
             >
               Repeat
@@ -185,11 +160,7 @@ const Main = () => {
             <Button
               variant="outlined"
               onClick={() => {
-                sayIt(
-                  store.Prompt.prompt_translation,
-                  store.Tutor.voice_idx,
-                  0
-                );
+                sayIt(props.question, props.question_voice_idx, 0);
               }}
             >
               Repeat (slower)
@@ -197,7 +168,7 @@ const Main = () => {
           </Stack>
         </Grid>
       </Grid>
-    </Layout>
+    </div>
   );
 };
 

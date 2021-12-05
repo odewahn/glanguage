@@ -96,12 +96,6 @@ const Main = () => {
             control={<Radio />}
             label="GPT-3 conversation partner"
           />
-          <FormControlLabel
-            value="disabled"
-            disabled
-            control={<Radio />}
-            label="(Disabled option)"
-          />
         </RadioGroup>
       </FormControl>
     </div>

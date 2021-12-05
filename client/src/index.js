@@ -13,13 +13,11 @@ import rootReducer from "./app/rootReducer";
 import Main from "./components/Main";
 import Settings from "./components/Settings";
 
+import Test from "./components/QuestionResponseAnswerGrid/test";
+import Lesson from "./components/Lesson";
+
 import { fetchVocabulary } from "./app/state/settings";
-import {
-  setTutorField,
-  findVoiceByLanguage,
-  remapVoices,
-} from "./app/state/tutor";
-import { setStudentField } from "./app/state/student";
+import { setTutorField, remapVoices } from "./app/state/tutor";
 
 // Create the store with middleware for thunks and react dev tools
 // See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers
@@ -54,6 +52,8 @@ ReactDOM.render(
     <Router>
       <Route exact path="/main" component={Main} />
       <Route exact path="/" component={Settings} />
+      <Route exact path="/test" component={Test} />
+      <Route path="/lesson/:lesson_slug" component={Lesson} />
     </Router>
   </Provider>,
   document.getElementById("root")
